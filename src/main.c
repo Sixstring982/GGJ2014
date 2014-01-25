@@ -13,17 +13,6 @@
 #include "departments.h"
 #include "gamestate.h"
 
-u32 args[] = {1234};
-
-void PauseDelay(GameState* state, u32 ticks)
-{
-  CommandFunc cfunc;
-  Command* cmd;
-  cfunc.c1 = &GameState_Pause;
-  cmd = MallocCommand(state->currentTick + ticks, args, 1, cfunc);
-  GameState_InsertCommand(state, cmd);
-}
-
 void RunSub()
 { 
   char buffer[MAX_BUFFER_LENGTH];
@@ -35,18 +24,17 @@ void RunSub()
   while(running)
   {
     GameState_Tick(&state);
-    printf("Tick[%d]\n", state.currentTick);
+
     if(Console_DataAvailable())
     {
       Console_ReadLine(buffer);
-      printf("[%s]\n", buffer);
       if(!strcmp(buffer, "quit"))
       {
 	running = false;
       }
       else if(!strcmp(buffer, "pause"))
       {
-	PauseDelay(&state, 3);
+	GameState_Pause(&state);
       }
     }
   }

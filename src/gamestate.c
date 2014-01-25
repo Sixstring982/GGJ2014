@@ -9,10 +9,10 @@ void GameState_Init(GameState* state)
   PQue_Init(&(state->eventQueue));
 }
 
-void GameState_Pause(GameState* state, u32 number)
+void GameState_Pause(GameState* state)
 {
-  state->paused = true;
-  printf("Game Paused %d.\n", number);
+  state->paused = !state->paused;
+  printf("Game %s.\n", state->paused ? "paused" : "unpaused");
 }
 
 void Command_Execute(Command* command, GameState* state)
@@ -49,10 +49,12 @@ void GameState_Tick(GameState* state)
   {
     state->currentTick++;
     EvalCurrentEvents(state);
+    printf("---- %04d ----\n", state->currentTick);
   }
 }
 
 void GameState_InsertCommand(GameState* state, Command* command)
 {
   PQue_Insert(&state->eventQueue, command);
+  printf("[[EXECUTION SCHEDULED: %04d]]\n", command->executionTick);
 }

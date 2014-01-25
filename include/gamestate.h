@@ -15,7 +15,7 @@ extern void GameState_Init(GameState* state);
 
 extern void GameState_Tick(GameState* state);
 
-extern void GameState_Pause(GameState* state, u32 number);
+extern void GameState_Pause(GameState* state);
 
 extern void GameState_InsertCommand(GameState* state, Command* command);
 

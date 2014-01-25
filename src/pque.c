@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4209d7fa695ed3ca80122e5b0635d01b657a6f19
 #include "pque.h"
 
 #define PARENT(N) ((N) >> 1)
@@ -41,15 +44,15 @@ void PQue_HeapifyDown(PQue* queue, u32 index)
 {
   u32 lidx = LCHILD(index);
   u32 ridx = RCHILD(index);
+  Command** q = queue->queue;
+  u32 lowIdx;
 
   if(lidx > queue->size || ridx > queue->size)
   {
     return;
   }
 
-  Command** q = queue->queue;
-
-  u32 lowIdx = q[lidx]->executionTick < q[ridx]->executionTick ? lidx : ridx;
+  lowIdx = q[lidx]->executionTick < q[ridx]->executionTick ? lidx : ridx;
 
   if(q[index]->executionTick > q[lowIdx]->executionTick)
   {
@@ -66,15 +69,19 @@ void PQue_Insert(PQue* queue, Command* command)
 
 Command* PQue_Remove(PQue* queue)
 {
+  Command* top = queue->queue[1];
   if(queue->size < 1)
   {
     perror("\n\nPQue_Remove: EMPTY QUEUE!\n\n");
     exit(2);
   }
-  Command* top = queue->queue[1];
   PQue_Swap(queue, queue->size, 1);
   queue->size--;
   
   PQue_HeapifyDown(queue, 1);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4209d7fa695ed3ca80122e5b0635d01b657a6f19
   return top;
 }

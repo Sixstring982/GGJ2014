@@ -22,11 +22,16 @@ bool Console_DataAvailable()
 
   switch(retval)
   {
+<<<<<<< HEAD
   case -1: perror("IOError in select!\n"); exit(5);
     return false;
+=======
+  case -1: perror("IOError in select!\n"); exit(5); return false;
+>>>>>>> 4209d7fa695ed3ca80122e5b0635d01b657a6f19
   case 0:  return false;
   default:  return true;
   }
+  
 }
 
 void Console_ReadLine(char* toBuffer)

@@ -39,4 +39,5 @@ void TestPQue()
 int main(int argc, char** argv)
 {
   TestPQue();
+  return 0;
 }

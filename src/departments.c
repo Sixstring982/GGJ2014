@@ -5,9 +5,10 @@
 #include "departments.h"
 
 #define NUMDEPARTMENTS 10
+#define COMMANDLIMIT 32
 
 
-Department * MallocDepartmentsInit( int space, char * name,  char ** cmds, int commandlimit) 
+Department * MallocDepartments( int space, char * name,  char ** cmds, int commandlimit) 
 {	
 
 	Department *department = (Department *) malloc(sizeof(Department));
@@ -15,4 +16,4 @@ Department * MallocDepartmentsInit( int space, char * name,  char ** cmds, int c
 	department -> departmentname = name;
 	memcpy(department -> commands, cmds, commandlimit * sizeof(char *) );
 	return department;
-}
+} 

@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+
 #include "pque.h"
 
 #define PARENT(N) ((N) >> 1)
@@ -74,4 +76,5 @@ Command* PQue_Remove(PQue* queue)
   queue->size--;
   
   PQue_HeapifyDown(queue, 1);
+  return top;
 }

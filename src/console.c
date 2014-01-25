@@ -22,7 +22,8 @@ bool Console_DataAvailable()
 
   switch(retval)
   {
-  case -1: perror("IOError in select!\n"); break;
+  case -1: perror("IOError in select!\n"); exit(5);
+    return false;
   case 0:  return false;
   default:  return true;
   }

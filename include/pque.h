@@ -17,4 +17,6 @@ extern void PQue_Init(PQue* queue);
 
 extern void PQue_Insert(PQue* queue, Command* command);
 
+extern Command* PQue_Remove(PQue* queue);
+
 #endif /*PQUE_H*/

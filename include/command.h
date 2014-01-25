@@ -27,6 +27,12 @@ typedef struct s_command
   CommandFunc commFunc;
 }Command;
 
+/* Creates a new Command on the heap and returns a pointer to it. */
+/* ARGUMENTS:                                                     */
+/* executionTick -- The time that this Command will execute       */
+/* args -- The arguments given to this Command                    */
+/* argLength -- The number of arguments to use for this Command   */
+/* func -- The actual function that will call upon execution      */
 extern Command* MallocCommand(u32 executionTick, u32* args, u8 argLength, CommandFunc func);
 
 extern void FreeCommand(Command* command);

@@ -42,8 +42,7 @@ void PQue_HeapifyDown(PQue* queue, u32 index)
 
   if(lidx > queue->size || ridx > queue->size)
   {
-    perror("PRIORITY QUEUE OVERFLOW!\n\n");
-    exit(2);
+    return;
   }
 
   Command** q = queue->queue;
@@ -53,7 +52,7 @@ void PQue_HeapifyDown(PQue* queue, u32 index)
   if(q[index]->executionTick > q[lowIdx]->executionTick)
   {
     PQue_Swap(queue, index, lowIdx);
-    
+    PQue_HeapifyDown(queue, lowIdx);
   }
 }
 
@@ -61,4 +60,18 @@ void PQue_Insert(PQue* queue, Command* command)
 {
   queue->queue[++queue->size] = command;
   PQue_HeapifyUp(queue, queue->size);
+}
+
+Command* PQue_Remove(PQue* queue)
+{
+  if(queue->size < 1)
+  {
+    perror("\n\nPQue_Remove: EMPTY QUEUE!\n\n");
+    exit(2);
+  }
+  Command* top = queue->queue[1];
+  PQue_Swap(queue, queue->size, 1);
+  queue->size--;
+  
+  PQue_HeapifyDown(queue, 1);
 }

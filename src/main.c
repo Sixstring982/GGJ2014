@@ -10,12 +10,13 @@
 #include "itype.h"
 #include "console.h"
 #include "tokenize.h"
+#include "gamecommands.h"
 
 int main(int argc, char** argv)
 {
   char buffer[MAX_BUFFER_LENGTH];
   bool running = true;
-  
+    
   while(running)
   {
     printf("Tick!\n");

@@ -1,1 +1,3 @@
-Command * parse(char **, int size);
+#include "command.h"
+
+Command * parse(char ** tokenv, int size);

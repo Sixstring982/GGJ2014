@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "command.h"
 
 Command* MallocCommand(u32 executionTick, u32* args, u8 argLength, CommandFunc func)

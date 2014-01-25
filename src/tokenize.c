@@ -5,24 +5,28 @@
 #include "tokenize.h"
 #include "command.h"
 
-Command * tokenize(const char string[] )
+#define MAX_LIST_SIZE 64
+
+Command * tokenize(const char string[])
 {
-     int max_list_size = 64;
+  const char delimiters[] = " \t.,;:!-";
+  char running[MAX_LIST_SIZE];
+  u32 numtokens = 0;
 
-     const char delimiters[] = " \t.,;:!-";
-     char *running;
-     char *token;
+  char **tmp, *tokenv[MAX_LIST_SIZE];
 
-     char **tmp, *tokenv[max_list_size];
+  strcpy(running, string);
 
-     running = strdup (string);
+  for (tmp = tokenv; (*tmp = strtok(running, delimiters)) != NULL; numtokens++)
+  {
+    if (**tmp != '\0')
+    {
+      if (++tmp >= &tokenv[MAX_LIST_SIZE])
+      {
+	break;
+      }
+    }
+  }
 
-     int numtokens = 0;
-     for (tmp = tokenv; (*tmp = strsep(&running, delimiters)) != NULL; numtokens++)
-          if (**tmp != '\0')
-               if (++tmp >= &tokenv[max_list_size])
-                   break;
-
-     
+  return NULL;
 }
-     

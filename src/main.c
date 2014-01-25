@@ -1,3 +1,8 @@
+#define RUN_TESTS 1
+#if RUN_TESTS
+#include "tests.h"
+#else
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,3 +30,5 @@ int main(int argc, char** argv)
     }
   }
 }
+
+#endif /*RUN_TESTS*/

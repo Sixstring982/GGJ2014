@@ -1,5 +1,5 @@
 CC := gcc
-FLAGS := -Wall -pedantic -ansi -Werror -g
+CFLAGS := -g -Wall -pedantic -ansi -Werror
 ALLDEPS := 
 SRCDIR := src
 BUILDDIR := build

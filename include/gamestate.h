@@ -3,7 +3,7 @@
 
 typedef struct s_gameState
 {
-  
+  int i;
 }GameState;
 
 #endif /*GAMESTATE_H*/

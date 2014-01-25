@@ -16,4 +16,5 @@ Department * MallocDepartments( int space, char * name,  char ** cmds, int comma
 	department -> departmentname = name;
 	memcpy(department -> commands, cmds, commandlimit * sizeof(char *) );
 	return department;
-} 
+}
+

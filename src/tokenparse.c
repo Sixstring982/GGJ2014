@@ -11,6 +11,9 @@
 Command* tokenparse(const char str[])
 {
   const char delimiters[] = " \t.,;:!-";
+  int delay;
+  char cmdd[] = "delay";
+
   u32 delimCt = 0, i, j, slen = strlen(str), dlen = strlen(delimiters), currDelim, currChar;
   char** tokens;
 
@@ -55,6 +58,15 @@ Command* tokenparse(const char str[])
       tokens[currDelim][currChar++] = str[i];
     }
   }
+
+  for (i = 0; i<delimCt + 1; i++)
+  {
+    if(!strcmp(cmdd, tokens[i]) )
+      delay = atoi(tokens[++i]);
+  }
+
+
+
 
   for(i = 0; i < delimCt + 1; i++)
   {

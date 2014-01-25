@@ -7,7 +7,7 @@
 
 #define MAX_LIST_SIZE 64
 
-Command * tokenize(const char string[])
+char ** tokenize(const char string[])
 {
   const char delimiters[] = " \t.,;:!-";
   char running[MAX_LIST_SIZE];
@@ -28,5 +28,5 @@ Command * tokenize(const char string[])
     }
   }
 
-  return NULL;
+  return tokenv;
 }

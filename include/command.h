@@ -2,13 +2,14 @@
 #define COMMAND_H
 
 #include "itype.h"
-#include "gamestate.h"
 
-typedef void (*CommFunc0)(GameState*);
-typedef void (*CommFunc1)(GameState*, u32);
-typedef void (*CommFunc2)(GameState*, u32, u32);
-typedef void (*CommFunc3)(GameState*, u32, u32, u32);
-typedef void (*CommFunc4)(GameState*, u32, u32, u32, u32);
+struct s_gameState;
+
+typedef void (*CommFunc0)(struct s_gameState*);
+typedef void (*CommFunc1)(struct s_gameState*, u32);
+typedef void (*CommFunc2)(struct s_gameState*, u32, u32);
+typedef void (*CommFunc3)(struct s_gameState*, u32, u32, u32);
+typedef void (*CommFunc4)(struct s_gameState*, u32, u32, u32, u32);
 
 typedef union u_commandFunc
 {
@@ -36,7 +37,5 @@ typedef struct s_command
 extern Command* MallocCommand(u32 executionTick, u32* args, u8 argLength, CommandFunc func);
 
 extern void FreeCommand(Command* command);
-
-extern void Command_Execute(Command* command, GameState* state);
 
 #endif /*COMMAND_H*/

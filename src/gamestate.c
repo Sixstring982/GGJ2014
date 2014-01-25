@@ -5,7 +5,14 @@
 void GameState_Init(GameState* state)
 {
   state->currentTick = 0;
+  state->paused = false;
   PQue_Init(&(state->eventQueue));
+}
+
+void GameState_Pause(GameState* state, u32 number)
+{
+  state->paused = true;
+  printf("Game Paused %d.\n", number);
 }
 
 void Command_Execute(Command* command, GameState* state)
@@ -24,18 +31,28 @@ void Command_Execute(Command* command, GameState* state)
   }
 }
 
-void EvalNextEvents(GameState* state)
+void EvalCurrentEvents(GameState* state)
 {
   Command* cmd;
-  while(PQue_Peek(&state->eventQueue)->executionTick == state->currentTick)
+  while(PQue_Size(&state->eventQueue) > 0 &&
+	PQue_Peek(&state->eventQueue)->executionTick <= state->currentTick)
   {
     cmd = PQue_Remove(&state->eventQueue);
     Command_Execute(cmd, state);
+    FreeCommand(cmd);
   }
 }
 
 void GameState_Tick(GameState* state)
 {
-  state->currentTick++;
-  EvalNextEvents(state);
+  if(!state->paused)
+  {
+    state->currentTick++;
+    EvalCurrentEvents(state);
+  }
+}
+
+void GameState_InsertCommand(GameState* state, Command* command)
+{
+  PQue_Insert(&state->eventQueue, command);
 }

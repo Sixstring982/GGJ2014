@@ -19,4 +19,8 @@ extern void PQue_Insert(PQue* queue, Command* command);
 
 extern Command* PQue_Remove(PQue* queue);
 
+extern u32 PQue_Size(PQue* queue);
+
+extern Command* PQue_Peek(PQue* queue);
+
 #endif /*PQUE_H*/

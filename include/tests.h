@@ -25,7 +25,7 @@ void TestPQue()
 
     if(cmd->executionTick <= highest)
     {
-      perror("TestPque FAILED!");
+      fprintf(stderr, "TestPque FAILED! %d %d", highest, cmd->executionTick);
       exit(1);
     }
     highest = cmd->executionTick;

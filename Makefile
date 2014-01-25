@@ -1,9 +1,5 @@
 CC := gcc
-<<<<<<< HEAD
-CFLAGS := -g -Wall -pedantic  -Werror
-=======
-CFLAGS := -g -Wall -pedantic -ansi -Werror -std=c89
->>>>>>> 4209d7fa695ed3ca80122e5b0635d01b657a6f19
+CFLAGS := -g -Wall -pedantic -Werror -std=c89
 ALLDEPS := 
 SRCDIR := src
 BUILDDIR := build

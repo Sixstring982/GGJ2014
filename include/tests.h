@@ -14,7 +14,7 @@ void TestPQue()
   for(i = 0; i < 32; i++)
   {
     CommandFunc f;
-    Command* cmd = MallocCommand(1024 - i, NULL, 0, f);
+    Command* cmd = MallocCommand(rand(), NULL, 0, f);
     PQue_Insert(&queue, cmd);
   }
 
@@ -23,17 +23,15 @@ void TestPQue()
   {
     Command* cmd = PQue_Remove(&queue);
 
-    if(cmd->executionTick < highest)
+    if(cmd->executionTick <= highest)
     {
       perror("TestPque FAILED!");
-      exit(4);
+      exit(1);
     }
     highest = cmd->executionTick;
 
     FreeCommand(cmd);
   }
-
-  
 }
 
 int main(int argc, char** argv)

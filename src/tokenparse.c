@@ -8,39 +8,58 @@
 
 #define MAX_LIST_SIZE 64
 
-Command * tokenparse(const char string[])
+Command* tokenparse(const char str[])
 {
-    int delay = 0;
-    char cmp[] = "delay";
-    int i;
-
-
   const char delimiters[] = " \t.,;:!-";
-  char running[MAX_LIST_SIZE];
-  u32 numtokens = 0;
+  u32 delimCt = 0, i, j, slen = strlen(str), dlen = strlen(delimiters), currDelim, currChar;
+  char** tokens;
 
-  char **tmp, *tokenv[MAX_LIST_SIZE];
-
-  strcpy(running, string);
-
-  for (tmp = tokenv; (*tmp = strtok(running, delimiters)) != NULL; numtokens++)
+  for(i = 0; i < slen; i++)
   {
-    if (**tmp != '\0')
+    for(j = 0; j < dlen; j++)
     {
-      if (++tmp >= &tokenv[MAX_LIST_SIZE])
+      if(str[i] == delimiters[j])
       {
+	delimCt++;
 	break;
       }
     }
   }
 
-
-    /* look for delay syntax */
-    for(i = 0; i < numtokens; i++)
+  tokens = (char**)malloc(sizeof(char*) * (delimCt + 1));
+  for(i = 0; i < delimCt + 1; i++)
+  {
+    tokens[i] = (char*)malloc(sizeof(char) * MAX_LIST_SIZE);
+  }
+  
+  currChar = currDelim = 0;
+  for(i = 0; i < slen; i++)
+  {
+    bool foundDelim = false;
+    for(j = 0; j < dlen; j++)
     {
-      if(!strcmp(tokenv[i],cmp))
-        delay = atoi(tokenv[++i]);
+      if(str[i] == delimiters[j])
+      {
+	foundDelim = true;
+	break;
+      }
     }
+    
+    if(foundDelim)
+    {
+      currDelim++;
+      currChar = 0;
+    }
+    else
+    {
+      tokens[currDelim][currChar++] = str[i];
+    }
+  }
 
-  return NULL;
+  for(i = 0; i < delimCt + 1; i++)
+  {
+    printf("[%s]", tokens[i]);
+  }
+
+  return NULL; 
 }

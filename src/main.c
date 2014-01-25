@@ -36,6 +36,7 @@ void RunSub()
       {
 	GameState_Pause(&state);
       }
+      tokenparse(buffer);
     }
   }
 }

@@ -16,3 +16,9 @@
 *.exe
 *.out
 *.app
+
+# emacs backup files
+*~
+
+# no need to use the build folder
+build

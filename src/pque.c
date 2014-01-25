@@ -6,6 +6,21 @@
 #define LCHILD(N) ((N) << 1)
 #define RCHILD(N) (((N) << 1) + 1)
 
+u32 PQue_Size(PQue* queue)
+{
+  return queue->size;
+}
+
+Command* PQue_Peek(PQue* queue)
+{
+  if(!queue->size)
+  {
+    perror("\n\nPQue_Peek: Empty Queue!\n\n");
+    exit(6);
+  }
+  return queue->queue[1];
+}
+
 void PQue_Swap(PQue* queue, u32 idxA, u32 idxB)
 {
   Command* cmd = queue->queue[idxA];
@@ -38,10 +53,19 @@ void PQue_HeapifyUp(PQue* queue, u32 index)
 
 void PQue_HeapifyDown(PQue* queue, u32 index)
 {
-  u32 lidx = LCHILD(index);
-  u32 ridx = RCHILD(index);
+  u32 lidx = index;
+  u32 ridx = index;
   Command** q = queue->queue;
-  u32 lowIdx;
+  u32 lowIdx = index;
+
+  if(LCHILD(index) <= queue->size)
+  {
+    lidx = LCHILD(index);
+  }
+  if(RCHILD(index) <= queue->size)
+  {
+    ridx = RCHILD(index);
+  }
 
   if(lidx > queue->size || ridx > queue->size)
   {
@@ -73,7 +97,7 @@ Command* PQue_Remove(PQue* queue)
   }
   PQue_Swap(queue, queue->size, 1);
   queue->size--;
-  
+
   PQue_HeapifyDown(queue, 1);
   return top;
 }

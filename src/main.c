@@ -4,6 +4,7 @@
 
 #include "itype.h"
 #include "console.h"
+#include "tokenize.h"
 
 int main(int argc, char** argv)
 {

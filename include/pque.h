@@ -15,4 +15,6 @@ typedef struct s_pque
 
 extern void PQue_Init(PQue* queue);
 
+extern void PQue_Insert(PQue* queue, Command* command);
+
 #endif /*PQUE_H*/

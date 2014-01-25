@@ -9,7 +9,7 @@
 
 #include "itype.h"
 #include "console.h"
-#include "tokenize.h"
+#include "tokenparse.h"
 #include "departments.h"
 #include "gamestate.h"
 

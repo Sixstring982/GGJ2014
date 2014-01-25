@@ -37,6 +37,6 @@ extern Command* MallocCommand(u32 executionTick, u32* args, u8 argLength, Comman
 
 extern void FreeCommand(Command* command);
 
-extern void Command_Execute(Command* command);
+extern void Command_Execute(Command* command, GameState* state);
 
 #endif /*COMMAND_H*/

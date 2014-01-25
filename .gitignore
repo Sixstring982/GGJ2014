@@ -21,4 +21,4 @@
 *~
 
 # no need to use the build folder
-build
+build/*

@@ -235,7 +235,7 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
 
 	    if(!EnemiesLeft(state))
 	    {
-	      printf("[SONAR]: All enemies neutralized. Moving to deeper waters...");
+	      printf("[SONAR]: All enemies neutralized. Moving to deeper waters...\n");
 	      Console_IncreaseTickSpeed();
 	      GameState_Init(state);
 	    }

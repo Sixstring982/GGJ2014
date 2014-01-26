@@ -80,6 +80,11 @@ void Console_IncreaseTickSpeed()
   tickSecs--;
 }
 
+u32 Console_GetTickSpeed()
+{
+  return tickSecs;
+}
+
 void Console_ReadLine(char* toBuffer)
 {
   int readC;

@@ -48,6 +48,13 @@ void GameState_Init(GameState* state)
   }
 }
 
+void GameState_InitPreserveTime(GameState* state)
+{
+  u32 ticks = state->currentTick;
+  GameState_Init(state);
+  state->currentTick = ticks;
+}
+
 u32 HomingsLeft(GameState* state)
 {
   return (state->ammunition >> 16) & 0xff;
@@ -235,9 +242,14 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
 
 	    if(!EnemiesLeft(state))
 	    {
+	      if(Console_GetTickSpeed() == 1)
+	      {
+		printf("[SONAR]: Oh snap you won!\n");
+		exit(0);
+	      }
 	      printf("[SONAR]: All enemies neutralized. Moving to deeper waters...\n");
 	      Console_IncreaseTickSpeed();
-	      GameState_Init(state);
+	      GameState_InitPreserveTime(state);
 	    }
 	    break;
 	  }

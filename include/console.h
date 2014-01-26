@@ -53,4 +53,6 @@ extern void Console_ColorBasedOnValue(u32 val, u32 min, u32 max);
 
 extern void Console_IncreaseTickSpeed();
 
+extern u32 Console_GetTickSpeed();
+
 #endif /*CONSOLE_H*/

@@ -32,6 +32,8 @@ extern void GameState_AddAmmoCount(u32 ammoType, s32 offset);
 
 extern void GameState_Init(GameState* state);
 
+extern void GameState_InitPreserveTime(GameState* state);
+
 extern void GameState_Tick(GameState* state);
 
 extern void GameState_Pause(GameState* state);

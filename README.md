@@ -8,10 +8,11 @@ INSTALLATION
 ------------
 
 *NIX:
-'#cd GGJ14
-'#make
-'#./build/sub
-
+<code>
+#cd GGJ14
+#make
+#./build/sub
+</code>
 
 ANYTHING other than *NIX:
 on your own atm

@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "itype.h"
 #include "console.h"
@@ -66,6 +67,8 @@ void RunSub()
   char buffer[MAX_BUFFER_LENGTH];
   bool running = true;
   GameState state;
+
+  srand(time(NULL));
   
   GameState_Init(&state);
     

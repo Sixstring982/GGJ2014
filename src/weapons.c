@@ -33,54 +33,84 @@ s32 TorpedoPrepped(GameState* state)
   return FirstTorpedoOfType(state, TORPEDOSTATE_PREP);
 }
 
-u32 BoostersLeft(GameState* state)
+u32 Weapons_BoostersLeft(GameState* state)
 {
   return state->ammunition & 0xff;
 }
 
-void DecrementBoosters(GameState* state)
+void Weapons_AddToBoosters(GameState* state, s32 amt)
 {
-  u32 boosters = BoostersLeft(state);
-  if(boosters > 0)
+  s32 boosters = Weapons_BoostersLeft(state);
+  boosters += amt;
+  if(boosters > 0xff)
   {
-    boosters--;
-    state->ammunition &= 0xffffff00;
-    state->ammunition |= boosters;
+    boosters = 0xff;
   }
+  if(boosters < 0)
+  {
+    boosters = 0;
+  }
+  state->ammunition &= 0xffffff00;
+  state->ammunition |= boosters;
 }
 
-u32 WarheadsLeft(GameState* state)
+void DecrementBoosters(GameState* state)
+{
+  AddToBoosters(state, -1);
+}
+
+u32 Weapons_WarheadsLeft(GameState* state)
 {
   return (state->ammunition >> 8) & 0xff;
 }
 
-void DecrementWarheads(GameState* state)
+void Weapons_AddToWarheads(GameState* state, s32 amt)
 {
-  u32 warheads = WarheadsLeft(state);
-  if(warheads > 0)
+  s32 warheads = Weapons_WarheadsLeft(state);
+  warheads += amt;
+  if(warheads > 0xff)
   {
-    warheads--;
-    warheads <<= 8;
-    state->ammunition &= 0xffff00ff;
-    state->ammunition |= warheads;
+    warheads = 0xff;
   }
+  if(warheads < 0)
+  {
+    warheads = 0;
+  }
+  warheads <<= 8;
+  state->ammunition &= 0xffff00ff;
+  state->ammunition |= warheads;
 }
 
-u32 HomingsLeft(GameState* state)
+void DecrementWarheads(GameState* state)
+{
+  AddToWarheads(state, -1);
+}
+
+u32 Weapons_HomingsLeft(GameState* state)
 {
   return (state->ammunition >> 16) & 0xff;
 }
 
+void Weapons_AddToHomings(GameState* state, u32 amt)
+{
+  s32 warheads = Weapons_HomingsLeft(state);
+  warheads += amt;
+  if(warheads > 0xff)
+  {
+    warheads = 0xff;
+  }
+  if(warheads < 0)
+  {
+    warheads = 0;
+  }
+  warheads <<= 16;
+  state->ammunition &= 0xff00ffff;
+  state->ammunition |= warheads;
+}
+
 void DecrementHomings(GameState* state)
 {
-  u32 homings = WarheadsLeft(state);
-  if(homings > 0)
-  {
-    homings--;
-    homings <<= 16;
-    state->ammunition &= 0xff00ffff;
-    state->ammunition |= homings;
-  }
+  AddToHomings(state, -1);
 }
 
 s32 TorpedoStorage(GameState* state)
@@ -168,7 +198,7 @@ void Weapons_Upgrade(GameState* state, u32 upgradeIdx)
 	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; booster already installed.\n"
 	       COLOR_RESET);	
       }
-      else if(!BoostersLeft(state))
+      else if(!Weapons_BoostersLeft(state))
       {
 	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; no boosters left.\n"
 	       COLOR_RESET);	
@@ -187,7 +217,7 @@ void Weapons_Upgrade(GameState* state, u32 upgradeIdx)
 	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; warhead already installed.\n"
 	       COLOR_RESET);	
       }
-      else if(!WarheadsLeft(state))
+      else if(!Weapons_WarheadsLeft(state))
       {
 	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; no warheads left.\n"
 	       COLOR_RESET);	
@@ -206,7 +236,7 @@ void Weapons_Upgrade(GameState* state, u32 upgradeIdx)
 	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; homing already installed.\n"
 	       COLOR_RESET);	
       }
-      else if(!HomingsLeft(state))
+      else if(!Weapons_HomingsLeft(state))
       {
 	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; no homing left.\n"
 	       COLOR_RESET);	
@@ -226,9 +256,9 @@ void Weapons_ListStatus(GameState* state)
 {
   u32 i;
   printf(COLOR_GREEN "[WEAPONS]: Boosters Warheads Homings" COLOR_RESET "\n");
-  printf(COLOR_GREEN "           %3d      %3d      %3d" COLOR_RESET "\n\n", BoostersLeft(state),
-	 WarheadsLeft(state),
-	 HomingsLeft(state));
+  printf(COLOR_GREEN "           %3d      %3d      %3d" COLOR_RESET "\n\n", Weapons_BoostersLeft(state),
+	 Weapons_WarheadsLeft(state),
+	 Weapons_HomingsLeft(state));
   printf(COLOR_RED "Hull Integrity: %d percent." COLOR_RESET "\n", state->currentHealth);
   printf(COLOR_RED "Notable Torpedos:" COLOR_RESET "\n");
 

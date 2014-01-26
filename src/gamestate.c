@@ -9,7 +9,8 @@
 #define TEXT_RESET   "\033[0m"
 #define COLOR_RESET   "\033[0m"
 #define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
-
+#define COLOR_MAGENTA "\033[35m"      /* Magenta */
+#define COLOR_GREEN   "\033[32m"      /* Green */
 
 #define TEXT_BLINK    "\033[5m"      /* BLINK */
 #define TEXT_BLINKOFF   "\033[25m"      /* NO BLINK */
@@ -44,6 +45,71 @@ void GameState_Init(GameState* state)
   {
     GameState_SpawnEnemy(state);
   }
+}
+
+u32 HomingsLeft(GameState* state)
+{
+  return (state->ammunition >> 16) & 0xff;
+}
+
+void AddToHomings(GameState* state, u32 amt)
+{
+  s32 warheads = HomingsLeft(state);
+  warheads += amt;
+  if(warheads > 0xff)
+  {
+    warheads = 0xff;
+  }
+  if(warheads < 0)
+  {
+    warheads = 0;
+  }
+  warheads <<= 16;
+  state->ammunition &= 0xff00ffff;
+  state->ammunition |= warheads;
+}
+
+u32 BoostersLeft(GameState* state)
+{
+  return state->ammunition & 0xff;
+}
+
+void AddToBoosters(GameState* state, s32 amt)
+{
+  s32 boosters = BoostersLeft(state);
+  boosters += amt;
+  if(boosters > 0xff)
+  {
+    boosters = 0xff;
+  }
+  if(boosters < 0)
+  {
+    boosters = 0;
+  }
+  state->ammunition &= 0xffffff00;
+  state->ammunition |= boosters;
+}
+
+u32 WarheadsLeft(GameState* state)
+{
+  return (state->ammunition >> 8) & 0xff;
+}
+
+void AddToWarheads(GameState* state, s32 amt)
+{
+  s32 warheads = WarheadsLeft(state);
+  warheads += amt;
+  if(warheads > 0xff)
+  {
+    warheads = 0xff;
+  }
+  if(warheads < 0)
+  {
+    warheads = 0;
+  }
+  warheads <<= 8;
+  state->ammunition &= 0xffff00ff;
+  state->ammunition |= warheads;
 }
 
 void GameState_Pause(GameState* state)
@@ -108,7 +174,9 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
 	     t->distance >= et->distance)
 	  {
 	    /* Hit another torpedo! */
-	    printf("[SONAR]: Enemy Torpedo destroyed, heading %d degrees.\n", et->heading);
+	    printf(COLOR_MAGENTA 
+		   "[SONAR]: Enemy Torpedo destroyed, heading %d degrees.\n"
+		   COLOR_RESET, et->heading);
 	    Torpedo_Init(t);
 	    Torpedo_Init(et);
 	    break;
@@ -123,7 +191,21 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
 	   t->distance >= e->distance)
 	{
 	  /* HIT! */
-	  printf("[WEAPONS]: Enemy neutralized.\n");
+	  u32 upgrades = 1 + (rand() % 3);
+	  printf(COLOR_GREEN "[WEAPONS]: Enemy neutralized.\n" COLOR_RESET);
+
+	  switch(rand() % 3)
+	  {
+	  case 0: printf("[HELM]: Upgrade received: %d booster%s.", upgrades,
+			 upgrades > 1 ? "s" : "");
+	    AddToBoosters(state, upgrades); break;
+	  case 1: printf("[HELM]: Upgrade received: %d warhead%s.", upgrades,
+			 upgrades > 1 ? "s" : "");
+	    AddToWarheads(state, upgrades); break;
+	  case 2: printf("[HELM]: Upgrade received: %d homing%s.", upgrades,
+			 upgrades > 1 ? "s" : "");
+	    AddToHomings(state, upgrades); break;
+	  }
 	  Torpedo_Init(t);
 	  Enemy_Init(e);
 	  break;

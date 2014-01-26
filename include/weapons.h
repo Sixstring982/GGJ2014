@@ -19,4 +19,10 @@ void Weapons_ChangeTorpedoType(GameState* state, TorpedoState type);
 
 void Weapons_ChangeTorpedoType(GameState* state, TorpedoState type);
 
+void AddToBoosters(GameState* state, u32 amt);
+
+void AddToWarheads(GameState* state, u32 amt);
+
+void AddToHomings(GameState* state, u32 amt);
+
 #endif /*WEAPONS_H*/

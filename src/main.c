@@ -3,6 +3,13 @@
 #include "tests.h"
 #else
 
+
+#define COLOR_RESET   "\033[0m"
+#define COLOR_BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
+#define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
+#define COLOR_BLUE    "\033[34m"      /* Blue */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,10 +22,9 @@
 
 void PrintManual()
 {
-  char ESC=27;
-  printf("%c[1m",ESC);  /*- turn on bold */
+  printf(COLOR_BOLDBLUE);
   printf("%-15s%-25s%-25s%-25s\n", "department", "example command", "notes", "base delay");
-  printf("%c[0m",ESC); /* turn off bold */
+  printf(COLOR_BOLDBLACK);
 
   printf("\n%-15s%-25s%-25s%-25s\n", "helm", "rotate clockwise 12", "rotates ship to heading", "1 tick per 15 degrees");
   printf("%-15s%-25s%-25s%-25s\n", "",     "degrees",             "of 12 degrees in the",                "");
@@ -30,6 +36,7 @@ void PrintManual()
 
   printf("\n%-15s%-25s%-25s%-25s\n", "weapons", "load", "loads torpedo", "2 ticks");
   printf("\n%-15s%-25s%-25s%-25s\n", "",          "fire", "fires torpedo", "1 tick per 20 meters");
+  printf(COLOR_RESET);
 
 }
 

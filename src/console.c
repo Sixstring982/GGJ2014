@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include "console.h"
 
-/* printf( GREEN "Here is some text\n" RESET ); */
+/* printf( COLOR_GREEN "Here is some text\n" COLOR_RESET ); */
 
 
 bool Console_DataAvailable()

@@ -97,8 +97,24 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
     Enemy* e = state->enemies + i;
     if(e->alive)
     {
+
+      Torpedo* et = &e->torpedo;
+      if(et->heading == t->heading ||
+	 (t->homing && (ABS(t->heading - et->heading) < ENEMY_DIFFUSE_LATERAL)))
+      {
+	if(t->distance - speed <= et->distance &&
+	   t->distance >= et->distance)
+	{
+	  /* Hit another torpedo! */
+	  printf("[SONAR]: Enemy Torpedo destroyed, heading %d degrees.\n", et->heading);
+	  Torpedo_Init(t);
+	  Torpedo_Init(et);
+	  break;
+	}
+      }
+
       if(e->heading == t->heading ||
-	 (t->booster && (ABS(t->heading - e->heading) < ENEMY_DIFFUSE_LATERAL)))
+	 (t->homing && (ABS(t->heading - e->heading) < ENEMY_DIFFUSE_LATERAL)))
       {
 	if(t->distance - speed <= e->distance &&
 	   t->distance >= e->distance)
@@ -142,7 +158,7 @@ void UpdateEnemyTorpedo(GameState* state, Enemy* e)
       }
       printf(TEXT_BLINK COLOR_BACK_RED "[SONAR]: WARNING! TORPEDO COLLISION! HULL AT %d PERCENT" TEXT_BLINKOFF COLOR_RESET"\n",
 	     state->currentHealth);
-      if(state->currentHealth < 0)
+      if(state->currentHealth <= 0)
       {
 	printf("\n" COLOR_BACK_RED_HIGH COLOR_BOLDWHITE TEXT_BLINK "ABANDON SHIP!\n" COLOR_RESET);
       }

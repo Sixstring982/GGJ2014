@@ -4,11 +4,16 @@
 #include "util.h"
 
 #define COLOR_BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
+#define COLOR_BLUE    "\033[34m"      /* Blue */
+#define COLOR_RED     "\033[31m"      /* Red */
 #define TEXT_RESET   "\033[0m"
 #define COLOR_RESET   "\033[0m"
 
-#define COLOR_BLUE    "\033[34m"      /* Blue */
+#define TEXT_BLINK    "\033[5m"      /* BLINK */
+#define TEXT_BLINKOFF   "\033[25m"      /* NO BLINK */
 
+#define COLOR_BACK_RED     "\033[41m"      /* Red background */
+#define COLOR_BACK_RESET    "\033[40m"      /* reset background */
 
 void GameState_Init(GameState* state)
 {
@@ -147,7 +152,7 @@ void UpdateEnemyTorpedo(GameState* state, Enemy* e)
       {
 	state->currentHealth = 0;
       }
-      printf("[SONAR]: WARNING! TORPEDO COLLISION! HULL AT %d PERCENT\n",
+      printf(TEXT_BLINK COLOR_BACK_RED "[SONAR]: WARNING! TORPEDO COLLISION! HULL AT %d PERCENT" TEXT_BLINKOFF COLOR_RESET"\n",
 	     state->currentHealth);
       if(state->currentHealth <= 0)
       {
@@ -179,7 +184,7 @@ void Fire(Enemy* e)
     e->torpedo.heading = e->heading;
     e->torpedo.distance = e->distance;
     e->torpedo.state = TORPEDOSTATE_FIRE;
-    printf("[SONAR]: Enemy torpedo detected; Heading %d degrees.\n", e->torpedo.heading);
+    printf(TEXT_BLINK COLOR_RED "[SONAR]: Enemy torpedo detected; Heading %d degrees." TEXT_BLINKOFF COLOR_RESET "\n", e->torpedo.heading);
   }
 }
 

@@ -51,6 +51,7 @@ void Console_ColorBasedOnValue(u32 val, u32 min, u32 max)
   return;
 }
 
+static u32 tickSecs = TICK_SECS;
 bool Console_DataAvailable()
 {
   fd_set rfds;
@@ -60,7 +61,7 @@ bool Console_DataAvailable()
   FD_ZERO(&rfds);
   FD_SET(0, &rfds);
 
-  tv.tv_sec = TICK_SECS;
+  tv.tv_sec = tickSecs;
   tv.tv_usec = 0;
 
   retval = select(1, &rfds, NULL, NULL, &tv);
@@ -72,6 +73,11 @@ bool Console_DataAvailable()
   default:  return true;
   }
   
+}
+
+void Console_IncreaseTickSpeed()
+{
+  tickSecs--;
 }
 
 void Console_ReadLine(char* toBuffer)

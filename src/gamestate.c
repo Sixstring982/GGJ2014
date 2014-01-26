@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "console.h"
 #include "gamestate.h"
 #include "util.h"
 
@@ -146,6 +147,19 @@ void EvalCurrentEvents(GameState* state)
   }
 }
 
+bool EnemiesLeft(GameState* state)
+{
+  u32 i;
+  for(i = 0; i < ENEMY_ARRAY_LENGTH; i++)
+  {
+    if(state->enemies[i].alive)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 void Torpedo_Advance(GameState* state, Torpedo* t)
 {
   u32 speed = t->booster ? TORPEDO_BOOST_SPEED : TORPEDO_NORMAL_SPEED;
@@ -218,6 +232,13 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
 	    }
 	    Torpedo_Init(t);
 	    Enemy_Init(e);
+
+	    if(!EnemiesLeft(state))
+	    {
+	      printf("[SONAR]: All enemies neutralized. Moving to deeper waters...");
+	      Console_IncreaseTickSpeed();
+	      GameState_Init(state);
+	    }
 	    break;
 	  }
 	}

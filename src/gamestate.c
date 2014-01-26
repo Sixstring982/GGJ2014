@@ -8,11 +8,15 @@
 #define COLOR_RED     "\033[31m"      /* Red */
 #define TEXT_RESET   "\033[0m"
 #define COLOR_RESET   "\033[0m"
+#define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
+
 
 #define TEXT_BLINK    "\033[5m"      /* BLINK */
 #define TEXT_BLINKOFF   "\033[25m"      /* NO BLINK */
 
 #define COLOR_BACK_RED     "\033[41m"      /* Red background */
+#define COLOR_BACK_RED_HIGH     "\033[101m"      /* Red background high intensity */
+
 #define COLOR_BACK_RESET    "\033[40m"      /* reset background */
 
 void GameState_Init(GameState* state)
@@ -140,7 +144,7 @@ void UpdateEnemyTorpedo(GameState* state, Enemy* e)
 	     state->currentHealth);
       if(state->currentHealth < 0)
       {
-	printf("\nABANDON SHIP!\n");
+	printf("\n" COLOR_BACK_RED_HIGH COLOR_BOLDWHITE TEXT_BLINK "ABANDON SHIP!\n" COLOR_RESET);
       }
       Torpedo_Init(&e->torpedo);
     }

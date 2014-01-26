@@ -16,7 +16,9 @@
 
 #define TEXT_BLINK    "\033[5m"      /* BLINK */
 
-#define TEXT_FRAK    "\033[100m"      /* FRAKTUR */
+#define COLOR_BACK_RESET    "\033[40m"      /* FRAKTUR */
+#define COLOR_BACK_RED_HIGH     "\033[101m"      /* Red background */
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,7 +32,7 @@
 
 void PrintManual()
 {
-  printf(COLOR_YELLOW);
+  printf(COLOR_BACK_RED_HIGH);
   printf("%-13s%-25s%-25s%-25s\n", "--------------", "-------------------------", "-------------------------", "-------------------------");
 
   printf("%-13s%-25s%-25s%-25s\n", "[department]", "[example command]", "[notes]", "[base delay]");

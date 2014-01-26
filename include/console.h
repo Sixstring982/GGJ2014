@@ -29,6 +29,8 @@
 #define COLOR_BACK_RED     "\033[41m"      /* Red background */
 #define COLOR_BACK_RESET    "\033[40m"      /* reset background */
 
+#define COLOR_BACK_RED_HIGH     "\033[101m"      /* Red background */
+
 
 
 #include "itype.h"

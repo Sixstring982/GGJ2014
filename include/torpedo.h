@@ -34,8 +34,6 @@ typedef struct s_torpedo
 
 extern void Torpedo_Init(Torpedo* t);
 
-extern void Torpedo_Advance(Torpedo* t);
-
 extern void Torpedo_SetState(Torpedo* t, TorpedoState state);
 
 #endif /*TORPEDO_H*/

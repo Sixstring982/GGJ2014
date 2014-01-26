@@ -191,24 +191,35 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
 	   t->distance >= e->distance)
 	{
 	  /* HIT! */
-	  u32 upgrades = 1 + (rand() % 3);
-	  printf(COLOR_GREEN "[WEAPONS]: Enemy neutralized.\n" COLOR_RESET);
-
-	  switch(rand() % 3)
+	  if(!t->warhead && RANDONEIN(5))
 	  {
-	  case 0: printf("[HELM]: Upgrade received: %d booster%s.", upgrades,
-			 upgrades > 1 ? "s" : "");
-	    AddToBoosters(state, upgrades); break;
-	  case 1: printf("[HELM]: Upgrade received: %d warhead%s.", upgrades,
-			 upgrades > 1 ? "s" : "");
-	    AddToWarheads(state, upgrades); break;
-	  case 2: printf("[HELM]: Upgrade received: %d homing%s.", upgrades,
-			 upgrades > 1 ? "s" : "");
-	    AddToHomings(state, upgrades); break;
+	    /* Didn't do enough damage. */
+	    printf(COLOR_GREEN "[WEAPONS]: Enemy hit, but remains at %d degrees.\n",
+		   e->heading);
+	    Torpedo_Init(t);
+	    break;
 	  }
-	  Torpedo_Init(t);
-	  Enemy_Init(e);
-	  break;
+	  else
+	  {
+	    u32 upgrades = 1 + (rand() % 3);
+	    printf(COLOR_GREEN "[WEAPONS]: Enemy neutralized.\n" COLOR_RESET);
+
+	    switch(rand() % 3)
+	    {
+	    case 0: printf("[HELM]: Upgrade received: %d booster%s.", upgrades,
+			   upgrades > 1 ? "s" : "");
+	      AddToBoosters(state, upgrades); break;
+	    case 1: printf("[HELM]: Upgrade received: %d warhead%s.", upgrades,
+			   upgrades > 1 ? "s" : "");
+	      AddToWarheads(state, upgrades); break;
+	    case 2: printf("[HELM]: Upgrade received: %d homing%s.", upgrades,
+			   upgrades > 1 ? "s" : "");
+	      AddToHomings(state, upgrades); break;
+	    }
+	    Torpedo_Init(t);
+	    Enemy_Init(e);
+	    break;
+	  }
 	}
       }
     }

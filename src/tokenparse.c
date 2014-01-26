@@ -32,6 +32,14 @@ Command* parseWeaponsToken(char** tokens, u32 tokenCt, u32 currentTick)
     return MallocCommand(currentTick + 3, NULL, 0, cfunc);
   }
   if(tokenCt >= 1 &&
+     !strcmp("fire", tokens[0]))
+  {
+    CommandFunc cfunc;
+    cfunc.c0 = &Weapons_FireTorpedo;
+
+    return MallocCommand(currentTick + 2, NULL, 0, cfunc);
+  }
+  if(tokenCt >= 1 &&
      !strcmp("status", tokens[0]))
   {
     CommandFunc cfunc;

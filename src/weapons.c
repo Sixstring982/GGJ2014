@@ -107,6 +107,20 @@ void Weapons_PrepTorpedo(GameState* state)
   }
 }
 
+void Weapons_FireTorpedo(GameState* state)
+{
+  s32 loaded = TorpedoLoaded(state);
+  if(loaded == -1)
+  {
+    printf(COLOR_GREEN "[WEAPONS]: Torpedo fire failed; No torpedo loaded." COLOR_RESET "\n");
+  }
+  else
+  {
+    printf(COLOR_GREEN "[WEAPONS]: Torpedo fired!\n");
+    Torpedo_SetState(state->torpedos + loaded, TORPEDOSTATE_FIRE);
+  }
+}
+
 void Weapons_LoadTorpedo(GameState* state)
 {
   if(TorpedoLoaded(state) != -1)

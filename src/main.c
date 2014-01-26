@@ -83,7 +83,7 @@ void RunSub()
       {
 	GameState_InsertCommand(&state, cmd);
       }
-      else if(!strcmp(buffer, ""))
+      else if(strcmp(buffer, ""))
       {
 
 	printf(COLOR_YELLOW "Unrecognized command." COLOR_YELLOW "\n");

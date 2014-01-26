@@ -15,7 +15,7 @@ void Torpedo_Advance(Torpedo* t)
   if(t->distance > TORPEDO_MAX_DISTANCE)
   {
     t->state = TORPEDOSTATE_STORAGE;
-    printf("[WEAPONS]: Torpedo missed.");
+    printf("[WEAPONS]: Torpedo missed.\n");
   }
 }
 

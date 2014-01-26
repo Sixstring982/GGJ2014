@@ -10,6 +10,7 @@
 #define COLOR_BLUE    "\033[34m"      /* Blue */
 #define COLOR_YELLOW  "\033[33m"      /* Yellow */
 
+#define TEXT_BLINK    "\033[5m"      /* BLINK */
 
 #define TEXT_FRAK    "\033[100m"      /* FRAKTUR */
 

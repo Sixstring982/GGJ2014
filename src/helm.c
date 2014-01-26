@@ -2,6 +2,10 @@
 #include "helm.h"
 #include "util.h"
 
+#define COLOR_CYAN    "\033[36m"      /* Cyan */
+#define COLOR_RESET   "\033[0m"
+
+
 void Rotate(GameState* state, u32 targetHeading, bool counterClockwise)
 {
   if(counterClockwise)
@@ -40,11 +44,11 @@ void Rotate(GameState* state, u32 targetHeading, bool counterClockwise)
     cmd = MallocCommand(state->currentTick + 1, args, 1, func);
     GameState_InsertCommand(state, cmd);
 
-    printf("[HELM] At %d degrees. Rotating towards %d degrees.\n", state->heading, targetHeading);
+    printf(COLOR_CYAN "[HELM] At %d degrees. Rotating towards %d degrees." COLOR_RESET "\n", state->heading, targetHeading);
   }
   else
   {
-    printf("[HELM] Heading %d Reached.\n", state->heading);
+    printf(COLOR_CYAN "[HELM] Heading %d Reached. " COLOR_RESET "\n", state->heading);
   }
 }
 
@@ -60,5 +64,5 @@ void Helm_RotateClockwise(GameState* state, u32 targetHeading)
 
 void Helm_ListHeading(GameState* state)
 {
-  printf("[HELM] Current heading: %d degrees.\n", state->heading);
+  printf(COLOR_CYAN "[HELM] Current heading: %d degrees." COLOR_RESET "\n", state->heading);
 }

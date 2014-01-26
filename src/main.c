@@ -27,6 +27,7 @@ void RunSub()
 
     if(Console_DataAvailable())
     {
+      Command* cmd = NULL;
       Console_ReadLine(buffer);
       if(!strcmp(buffer, "quit"))
       {
@@ -36,7 +37,10 @@ void RunSub()
       {
 	GameState_Pause(&state);
       }
-      tokenparse(buffer);
+      if((cmd = tokenparse(buffer, state.currentTick)))
+      {
+	GameState_InsertCommand(&state, cmd);
+      }
     }
   }
 }

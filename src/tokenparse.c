@@ -3,12 +3,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "sonar.h"
 #include "tokenparse.h"
 #include "command.h"
 
 #define MAX_LIST_SIZE 64
 
-Command* tokenparse(const char str[])
+Command* parseHelmToken(char** tokens, u32 currentTick)
+{
+  return NULL;
+}
+
+Command* parseSonarToken(char** tokens, u32 currentTick)
+{
+  if(!strcmp("list", tokens[0]) &&
+     !strcmp("contacts", tokens[1]))
+  {
+    CommandFunc cfunc;
+
+    cfunc.c0 = &Sonar_PrintContacts;
+    return MallocCommand(currentTick + 2, NULL, 0, cfunc);
+  }
+  
+  return NULL;
+}
+
+  Command* parseFirstToken(char** tokens, u32 currentTick)
+{
+  if(!strcmp("helm", tokens[0]))
+  {
+    return parseHelmToken(tokens + 1, currentTick);
+  }
+  else if(!strcmp("sonar", tokens[0]))
+  {
+    return parseSonarToken(tokens + 1, currentTick);
+  }
+
+  return NULL;
+}
+
+Command* tokenparse(const char str[], u32 currentTick)
 {
   const char delimiters[] = " \t.,;:!-";
   int delay;
@@ -29,11 +63,12 @@ Command* tokenparse(const char str[])
     }
   }
 
-  tokens = (char**)malloc(sizeof(char*) * (delimCt + 1));
+  tokens = (char**)malloc(sizeof(char*) * (delimCt + 2));
   for(i = 0; i < delimCt + 1; i++)
   {
     tokens[i] = (char*)malloc(sizeof(char) * MAX_LIST_SIZE);
   }
+  tokens[i] = NULL;
   
   currChar = currDelim = 0;
   for(i = 0; i < slen; i++)
@@ -65,13 +100,10 @@ Command* tokenparse(const char str[])
       delay = atoi(tokens[++i]);
   }
 
-
-
-
   for(i = 0; i < delimCt + 1; i++)
   {
     printf("[%s]", tokens[i]);
   }
 
-  return NULL; 
+  return parseFirstToken(tokens, currentTick + delay); 
 }

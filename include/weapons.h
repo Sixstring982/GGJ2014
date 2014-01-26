@@ -11,6 +11,10 @@ void Weapons_FireTorpedo(GameState* state);
 
 void Weapons_PrepTorpedo(GameState* state);
 
+void Weapons_Upgrade(GameState* state, u32 upgradeIdx);
+
+void Weapons_ListStatus(GameState* state);
+
 void Weapons_ChangeTorpedoType(GameState* state, TorpedoState type);
 
 void Weapons_ListInventory(GameState* state);

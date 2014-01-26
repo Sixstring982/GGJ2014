@@ -17,6 +17,4 @@ void Weapons_ListStatus(GameState* state);
 
 void Weapons_ChangeTorpedoType(GameState* state, TorpedoState type);
 
-void Weapons_ListInventory(GameState* state);
-
 #endif /*WEAPONS_H*/

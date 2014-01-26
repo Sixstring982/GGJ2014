@@ -7,6 +7,7 @@
 #include "helm.h"
 #include "sonar.h"
 #include "tokenparse.h"
+#include "torpedo.h"
 #include "util.h"
 #include "weapons.h"
 
@@ -29,6 +30,36 @@ Command* parseWeaponsToken(char** tokens, u32 tokenCt, u32 currentTick)
     cfunc.c0 = &Weapons_LoadTorpedo;
     
     return MallocCommand(currentTick + 3, NULL, 0, cfunc);
+  }
+  if(tokenCt >= 1 &&
+     !strcmp("status", tokens[0]))
+  {
+    CommandFunc cfunc;
+    cfunc.c0 = &Weapons_ListStatus;
+    
+    return MallocCommand(currentTick + 2, NULL, 0, cfunc);
+  }
+  if(tokenCt >= 2 &&
+     !strcmp("upgrade", tokens[0]))
+  {
+    CommandFunc cfunc;
+    u32 args[1];
+    cfunc.c1 = &Weapons_Upgrade;
+    if(!strcmp("booster", tokens[1]))
+    {
+      args[0] = (u32)TORPEDOUPGRADE_BOOSTER;
+      return MallocCommand(currentTick + 6, args, 1, cfunc);
+    }
+    if(!strcmp("warhead", tokens[1]))
+    {
+      args[0] = (u32)TORPEDOUPGRADE_WARHEAD;
+      return MallocCommand(currentTick + 6, args, 1, cfunc);
+    }
+    if(!strcmp("homing", tokens[1]))
+    {
+      args[0] = (u32)TORPEDOUPGRADE_HOMING;
+      return MallocCommand(currentTick + 6, args, 1, cfunc);
+    }
   }
   return NULL;
 }

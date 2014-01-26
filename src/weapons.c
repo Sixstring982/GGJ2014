@@ -167,7 +167,7 @@ void Weapons_LoadTorpedo(GameState* state)
     s32 prepped = TorpedoPrepped(state);
     if(prepped == -1)
     {
-      printf(COLOR_GREEN "[WEAPONS]: Load torpedo failed; No prepped torpedo. use {torpedo prep} first." COLOR_RESET "\n");
+      printf(COLOR_GREEN "[WEAPONS]: Load torpedo failed; No prepped torpedo. use {weapons prep} first." COLOR_RESET "\n");
     }
     else
     {

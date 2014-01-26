@@ -3,6 +3,9 @@
 #include "enemy.h"
 #include "util.h"
 
+#define COLOR_MAGENTA "\033[35m"      /* Magenta */
+#define COLOR_RESET   "\033[0m"
+
 void Enemy_Init(Enemy* e)
 {
   e->heading = e->distance = 0;
@@ -15,7 +18,7 @@ void Enemy_Spawn(Enemy* e)
   e->distance = (rand() % 50) * 20;
   e->alive = true;
 
-  printf("[SONAR]: Enemy contact has been spotted.\n");
+  printf(COLOR_MAGENTA "[SONAR]: Enemy contact has been spotted." COLOR_RESET "\n");
 }
 
 void Diffuse(Enemy* e)

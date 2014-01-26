@@ -5,6 +5,9 @@
 
 #define COLOR_BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
 #define TEXT_RESET   "\033[0m"
+#define COLOR_RESET   "\033[0m"
+
+#define COLOR_BLUE    "\033[34m"      /* Blue */
 
 
 void GameState_Init(GameState* state)
@@ -141,7 +144,7 @@ void GameState_Tick(GameState* state)
 void GameState_InsertCommand(GameState* state, Command* command)
 {
   PQue_Insert(&state->eventQueue, command);
-  printf("[[EXECUTION SCHEDULED: %04d]]\n", command->executionTick);
+  printf(COLOR_BLUE "[[EXECUTION SCHEDULED: %04d]]" COLOR_RESET "\n", command->executionTick);
 }
 
 void GameState_SpawnEnemy(GameState* state)

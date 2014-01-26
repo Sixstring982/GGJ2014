@@ -90,6 +90,7 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
   {
     t->state = TORPEDOSTATE_STORAGE;
     printf("[WEAPONS]: Torpedo missed.\n");
+    Torpedo_Init(t);
   }
 
   for(i = 0; i < ENEMY_ARRAY_LENGTH; i++)
@@ -97,7 +98,6 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
     Enemy* e = state->enemies + i;
     if(e->alive)
     {
-
       Torpedo* et = &e->torpedo;
       if(et->state == TORPEDOSTATE_FIRE)
       {
@@ -224,6 +224,14 @@ void GameState_UpdateEnemies(GameState* state)
   }
 }
 
+void GameState_RandomEnemySpawn(GameState* state)
+{
+  if(RANDONEIN(ENEMY_SPAWN_ODDS))
+  {
+    GameState_SpawnEnemy(state);
+  }
+}
+
 void GameState_Tick(GameState* state)
 {
   if(!state->paused)
@@ -232,6 +240,7 @@ void GameState_Tick(GameState* state)
     EvalCurrentEvents(state);
     GameState_AdvanceTorpedos(state);
     GameState_UpdateEnemies(state);
+    GameState_RandomEnemySpawn(state);
     printf(COLOR_BOLDBLACK "---- %04d ----" TEXT_RESET "\n", state->currentTick);
   }
 }

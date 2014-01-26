@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "command.h"
 #include "pque.h"
+#include "util.h"
 
 void TestPQue()
 {
@@ -34,8 +36,24 @@ void TestPQue()
   }
 }
 
+void TestBinomialDistribution()
+{
+  u32 i;
+  for(i = 0; i < 30; i++)
+  {
+    printf("[%3d]", 20 * BinomialDistribution(10, 60));
+
+    if(!((i + 1) % 10))
+    {
+      printf("\n");
+    }
+  }
+}
+
 int main(int argc, char** argv)
 {
+  srand(time(NULL));
   TestPQue();
+  TestBinomialDistribution();
   return 0;
 }

@@ -16,7 +16,7 @@ void Enemy_Init(Enemy* e)
 void Enemy_Spawn(Enemy* e)
 {
   e->heading = (rand() % 24) * 15;
-  e->distance = (rand() % 50) * 20;
+  e->distance = 20 * BinomialDistribution(10, 60);
   e->alive = true;
   Torpedo_Init(&e->torpedo);
 

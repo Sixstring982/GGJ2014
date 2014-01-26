@@ -7,8 +7,12 @@
 #define COLOR_RESET   "\033[0m"
 #define COLOR_BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
 #define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
-#define COLOR_BLUE    "\033[34m"      /* Blue */
+#define COLOR_BOLDBLUE    "\033[1m\033[34m"      /* Bold Blue */
 #define COLOR_YELLOW  "\033[33m"      /* Yellow */
+#define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
+#define COLOR_GREEN   "\033[32m"      /* Green */
+#define COLOR_MAGENTA "\033[35m"      /* Magenta */
+#define COLOR_CYAN    "\033[36m"      /* Cyan */
 
 #define TEXT_BLINK    "\033[5m"      /* BLINK */
 
@@ -26,30 +30,34 @@
 
 void PrintManual()
 {
-  printf(COLOR_BLUE);
-  printf("%-12s%-25s%-25s%-25s\n", "department", "example command", "notes", "base delay");
-  printf(COLOR_BOLDBLACK);
+  printf(COLOR_YELLOW);
+  printf("%-13s%-25s%-25s%-25s\n", "--------------", "-------------------------", "-------------------------", "-------------------------");
 
-  printf("\n%-12s%-25s%-25s%-25s\n",  "helm", "rotate ",              "rotates ship to heading",    "1 tick per 15 degrees");
-  printf("%-12s%-25s%-25s%-25s\n",    "",     "counterclockwise 30",  "of 30 degrees in the",        "");
-  printf("%-12s%-25s%-25s%-25s\n",    "",     "",                     "counterclockwise ",  "");
-  printf("%-12s%-25s%-25s%-25s\n",    "",     "",                     "direction",          "");
+  printf("%-13s%-25s%-25s%-25s\n", "[department]", "[example command]", "[notes]", "[base delay]");
+  printf("%-13s%-25s%-25s%-25s\n", "--------------", "-------------------------", "-------------------------", "-------------------------");
 
-  printf("\n%-12s%-25s%-25s%-25s\n",  "",     "list heading", "displays heading","1 tick");
+  printf(COLOR_RESET);
 
-  printf("\n%-12s%-25s%-25s%-25s\n", "sonar", "list contacts", "lists enemies", "1 tick ");
+  printf("\n" COLOR_CYAN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n",  "helm", "rotate" ,  "rotates ship to heading",  "1 tick per 15 degrees");
+  printf(COLOR_CYAN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n",    "",   "counterclockwise 30", "of 30 degrees in the", "");
+  printf(COLOR_CYAN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n",    "",     "",                             "counterclockwise ",  "");
+  printf(COLOR_CYAN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n",    "",     "",                             "direction",          "");
 
-  printf("\n%-12s%-25s%-25s%-25s\n", "weapons", "status", "lists the status of", "1 click");
-  printf("\n%-12s%-25s%-25s%-25s\n", "",        "",       "your weapons", "");
+  printf(COLOR_CYAN "\n%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "helm", "list heading", "displays heading", "1 tick");
 
-  printf("\n%-12s%-25s%-25s%-25s\n", "", "prep", "preps a torpedo", "2 ticks");
+  printf("\n" COLOR_MAGENTA "%-13s%-25s" COLOR_RESET "%-25s%-25s\n",  "sonar", "list contacts", "lists enemies", "1 tick ");
 
-  printf("\n%-12s%-25s%-25s%-25s\n", "",         "upgrade booster/", "upgrades torpedo", "5 ticks per upgrade");
-  printf("%-12s%-25s%-25s%-25s\n", "",           "warhead/homing", "", "");
+  printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "status", "lists the status of", "1 click");
+  printf("\n"COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "",        "",       "your weapons",  "");
 
-  printf("\n%-12s%-25s%-25s%-25s\n", "",         "load", "loads torpedo", "2 ticks");
+  printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "prep", "preps a torpedo", "2 ticks");
 
-  printf("\n%-12s%-25s%-25s%-25s\n", "",          "fire", "fires torpedo", "1 tick per 20 meters");
+  printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "upgrade booster/", "upgrades torpedo", "5 ticks per upgrade");
+  printf(COLOR_GREEN "%-13s%-25s%-25s" COLOR_RESET "%-25s\n", "", "warhead/homing", "", "");
+
+  printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "load", "loads torpedo", "2 ticks");
+
+  printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "fire", "fires torpedo", "1 tick per 20 meters");
   printf(COLOR_RESET);
 
 }

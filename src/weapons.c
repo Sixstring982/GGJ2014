@@ -272,7 +272,7 @@ void Weapons_ListStatus(GameState* state)
     printf(COLOR_BOLDYELLOW);
   else
     printf(COLOR_RED_HIGH);
-  printf("%d percent." COLOR_RESET "\n", health);
+  printf(" %d percent." COLOR_RESET "\n", health);
 
   printf( "Notable Torpedos:" "\n");
 

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "weapons.h"
+#include "console.h"
 
 #define COLOR_GREEN   "\033[32m"      /* Green */
 #define COLOR_RESET   "\033[0m"
@@ -265,13 +266,7 @@ void Weapons_ListStatus(GameState* state)
   
   health = state -> currentHealth;
   printf("Hull Integrity:");
-
-  if(health > 65)
-    printf(COLOR_GREEN);
-  else if(health > 30)
-    printf(COLOR_BOLDYELLOW);
-  else
-    printf(COLOR_RED_HIGH);
+  Console_ColorBasedOnValue(health, 0, 100);
   printf(" %d percent." COLOR_RESET "\n", health);
 
   printf( "Notable Torpedos:" "\n");

@@ -49,4 +49,6 @@ extern bool Console_DataAvailable();
 /* newline character.                     */
 extern void Console_ReadLine(char* toBuffer);
 
+extern void Console_ColorBasedOnValue(u32 val, u32 min, u32 max);
+
 #endif /*CONSOLE_H*/

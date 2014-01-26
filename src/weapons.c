@@ -5,6 +5,7 @@
 #define COLOR_RESET   "\033[0m"
 #define COLOR_RED     "\033[31m"      /* Red */
 #define COLOR_BOLDYELLOW  "\033[1m\033[33m"      /* Bold Yellow */
+#define COLOR_RED_HIGH     "\033[91m"      /* Red background */
 
 
 /* Returns the index of the first 'type'd torpedo, or -1 if there isn't one. */
@@ -224,13 +225,26 @@ void Weapons_Upgrade(GameState* state, u32 upgradeIdx)
 
 void Weapons_ListStatus(GameState* state)
 {
-  u32 i;
+  u32 i; 
+  u32 health;
+
   printf(COLOR_GREEN "[WEAPONS]: Boosters Warheads Homings" COLOR_RESET "\n");
   printf(COLOR_GREEN "           %3d      %3d      %3d" COLOR_RESET "\n\n", BoostersLeft(state),
 	 WarheadsLeft(state),
 	 HomingsLeft(state));
-  printf(COLOR_RED "Hull Integrity: %d percent." COLOR_RESET "\n", state->currentHealth);
-  printf(COLOR_RED "Notable Torpedos:" COLOR_RESET "\n");
+  
+  health = state -> currentHealth;
+  printf("Hull Integrity:");
+
+  if(health > 65)
+    printf(COLOR_GREEN);
+  else if(health > 30)
+    printf(COLOR_BOLDYELLOW);
+  else
+    printf(COLOR_RED_HIGH);
+  printf("%d percent." COLOR_RESET "\n", health);
+
+  printf( "Notable Torpedos:" "\n");
 
   for(i = 0; i < TORPEDO_ARRAY_LENGTH; i++)
   {
@@ -247,7 +261,7 @@ void Weapons_ListStatus(GameState* state)
 	     state->torpedos[i].warhead ? COLOR_BOLDYELLOW "(warhead) " COLOR_RESET : "",
 	     state->torpedos[i].homing ? COLOR_BOLDYELLOW "(homing) " COLOR_RESET : ""); break;
     case TORPEDOSTATE_FIRE:
-      printf(COLOR_RED "Torpedo[%d]:%s%s%s Fired. %d degrees, %d meters." COLOR_RESET "\n", i,
+      printf(COLOR_RED_HIGH "Torpedo[%d]:%s%s%s Fired. %d degrees, %d meters." COLOR_RESET "\n", i,
 	     state->torpedos[i].booster ? COLOR_RED "(booster) " COLOR_RESET : "",
 	     state->torpedos[i].warhead ? COLOR_RED "(warhead) " COLOR_RESET : "",
 	     state->torpedos[i].homing ? COLOR_RED "(homing) " COLOR_RESET  : "",

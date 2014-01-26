@@ -5,7 +5,7 @@
 #define MAX_BUFFER_LENGTH 1024
 
 #define TEXT_RESET   "\033[0m"
-#define TEXT_BLINK    "\033[6m"      /* BLINK */
+#define TEXT_BLINK    "\033[5m"      /* BLINK */
 
 #define COLOR_RESET   "\033[0m"
 #define COLOR_BLACK   "\033[30m"      /* Black */

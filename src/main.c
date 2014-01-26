@@ -25,19 +25,26 @@
 void PrintManual()
 {
   printf(COLOR_BOLDBLUE);
-  printf("%-15s%-25s%-25s%-25s\n", "department", "example command", "notes", "base delay");
+  printf("%-12s%-25s%-25s%-25s\n", "department", "example command", "notes", "base delay");
   printf(COLOR_BOLDBLACK);
 
-  printf("\n%-15s%-25s%-25s%-25s\n", "helm", "rotate clockwise 12", "rotates ship to heading", "1 tick per 15 degrees");
-  printf("%-15s%-25s%-25s%-25s\n", "",     "degrees",             "of 12 degrees in the",                "");
-  printf("%-15s%-25s%-25s%-25s\n", "",     "",                    "clockwise direction ",                "");
-  
-  printf("\n%-15s%-25s%-25s%-25s\n", "", "list heading", "displays heading","1 tick");
+  printf("\n%-12s%-25s%-25s%-25s\n",  "helm", "rotate ",              "rotates ship to heading",    "1 tick per 15 degrees");
+  printf("%-12s%-25s%-25s%-25s\n",    "",     "counterclockwise 30",  "of 30 degrees in the",        "");
+  printf("%-12s%-25s%-25s%-25s\n",    "",     "",                     "counterclockwise ",  "");
+  printf("%-12s%-25s%-25s%-25s\n",    "",     "",                     "direction",          "");
 
-  printf("\n%-15s%-25s%-25s%-25s\n", "sonar", "list contacts", "lists enemies", "1 tick ");
+  printf("\n%-12s%-25s%-25s%-25s\n",  "",     "list heading", "displays heading","1 tick");
 
-  printf("\n%-15s%-25s%-25s%-25s\n", "weapons", "load", "loads torpedo", "2 ticks");
-  printf("\n%-15s%-25s%-25s%-25s\n", "",          "fire", "fires torpedo", "1 tick per 20 meters");
+  printf("\n%-12s%-25s%-25s%-25s\n", "sonar", "list contacts", "lists enemies", "1 tick ");
+
+  printf("\n%-12s%-25s%-25s%-25s\n", "weapons", "prep", "preps a torpedo", "2 ticks");
+
+  printf("\n%-12s%-25s%-25s%-25s\n", "",         "upgrade booster/", "upgrades torpedo", "5 ticks per upgrade");
+  printf("%-12s%-25s%-25s%-25s\n", "",           "warhead/homing", "", "");
+
+  printf("\n%-12s%-25s%-25s%-25s\n", "",         "load", "loads torpedo", "2 ticks");
+
+  printf("\n%-12s%-25s%-25s%-25s\n", "",          "fire", "fires torpedo", "1 tick per 20 meters");
   printf(COLOR_RESET);
 
 }

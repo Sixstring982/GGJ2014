@@ -9,6 +9,8 @@ void Weapons_LoadTorpedo(GameState* state);
 
 void Weapons_FireTorpedo(GameState* state);
 
+void Weapons_PrepTorpedo(GameState* state);
+
 void Weapons_ChangeTorpedoType(GameState* state, TorpedoState type);
 
 void Weapons_ListInventory(GameState* state);

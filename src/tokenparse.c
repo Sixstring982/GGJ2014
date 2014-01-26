@@ -3,13 +3,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "command.h"
 #include "helm.h"
 #include "sonar.h"
 #include "tokenparse.h"
 #include "util.h"
-#include "command.h"
+#include "weapons.h"
 
 #define MAX_LIST_SIZE 64
+
+Command* parseWeaponsToken(char** tokens, u32 tokenCt, u32 currentTick)
+{
+  if(tokenCt >= 1 &&
+     !strcmp("prep", tokens[0]))
+  {
+    CommandFunc cfunc;
+    cfunc.c0 = &Weapons_PrepTorpedo;
+
+    return MallocCommand(currentTick + 3, NULL, 0, cfunc);
+  }
+  if(tokenCt >= 1 &&
+     !strcmp("load", tokens[0]))
+  {
+    CommandFunc cfunc;
+    cfunc.c0 = &Weapons_LoadTorpedo;
+    
+    return MallocCommand(currentTick + 3, NULL, 0, cfunc);
+  }
+  return NULL;
+}
 
 Command* parseHelmToken(char** tokens, u32 tokenCt, u32 currentTick)
 {
@@ -99,6 +121,11 @@ Command* parseFirstToken(char** tokens, u32 tokenCt,  u32 currentTick)
 	  !strcmp("sonar", tokens[0]))
   {
     return parseSonarToken(tokens + 1, tokenCt - 1, currentTick);
+  }
+  else if(tokenCt >= 1 &&
+	  !strcmp("weapons", tokens[0]))
+  {
+    return parseWeaponsToken(tokens + 1, tokenCt - 1, currentTick);
   }
 
   return NULL;

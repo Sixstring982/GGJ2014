@@ -32,7 +32,7 @@ s32 TorpedoStorage(GameState* state)
   return FirstTorpedoOfType(state, TORPEDOSTATE_STORAGE);
 }
 
-void PrepTorpedo(GameState* state)
+void Weapons_PrepTorpedo(GameState* state)
 {
   if(TorpedoPrepped(state) != -1)
   {
@@ -44,6 +44,11 @@ void PrepTorpedo(GameState* state)
     if(storeIdx == -1)
     {
       printf("[WEAPONS]: Prep torpedo failed; No torpedos in storage.\n");
+    }
+    else
+    {
+      printf("[WEAPONS]: Torpedo prepped. Ready for upgrading or loading.\n");
+      Torpedo_SetState(state->torpedos + storeIdx, TORPEDOSTATE_PREP);
     }
   }
 }

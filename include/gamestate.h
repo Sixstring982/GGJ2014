@@ -8,6 +8,7 @@ typedef struct s_gameState
 {
   bool paused;
   u32 currentTick;
+  u32 heading;
   PQue eventQueue;
 }GameState;
 

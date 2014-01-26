@@ -6,6 +6,7 @@
 
 #define TEXT_RESET   "\033[0m"
 #define TEXT_BLINK    "\033[5m"      /* BLINK */
+#define TEXT_BLINKOFF   "\033[25m"      /* NO BLINK */
 
 #define COLOR_RESET   "\033[0m"
 #define COLOR_BLACK   "\033[30m"      /* Black */
@@ -24,6 +25,9 @@
 #define COLOR_BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
 #define COLOR_BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
 #define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
+
+#define COLOR_BACK_RED     "\033[41m"      /* Red background */
+#define COLOR_BACK_RESET    "\033[40m"      /* reset background */
 
 
 

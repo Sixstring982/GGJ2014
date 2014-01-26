@@ -26,7 +26,7 @@ void GameState_Init(GameState* state)
   state->currentTick = 0;
   state->paused = false;
   state->heading = 15 * (rand() % 24);
-  state->ammunition = 0xffffff;
+  state->ammunition = 0x010101;
   state->currentHealth = GAMESTATE_INITIAL_HEALTH;
   PQue_Init(&(state->eventQueue));
 

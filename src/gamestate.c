@@ -8,10 +8,17 @@
 
 void GameState_Init(GameState* state)
 {
+  u32 i;
   state->currentTick = 0;
   state->paused = false;
   state->heading = 15 * (rand() % 24);
   PQue_Init(&(state->eventQueue));
+
+  state->currentTorpedo = 0;
+  for(i = 0; i < 0xff; i++)
+  {
+    state->torpedos[i] = NULL;
+  }
 }
 
 void GameState_Pause(GameState* state)
@@ -48,14 +55,26 @@ void EvalCurrentEvents(GameState* state)
   }
 }
 
+void GameState_AdvanceTorpedos(GameState* state)
+{
+  u32 i;
+  for(i = 0; i < TORPEDO_ARRAY_LENGTH; i++)
+  {
+    if(state->torpedos[i]->state == TORPEDOSTATE_FIRE)
+    {
+      Torpedo_Advance(state->torpedos[i]);
+    }
+  }
+}
+
 void GameState_Tick(GameState* state)
 {
   if(!state->paused)
   {
     state->currentTick++;
     EvalCurrentEvents(state);
+    GameState_AdvanceTorpedos(state);
     printf(COLOR_BOLDBLACK "---- %04d ----" TEXT_RESET "\n", state->currentTick);
-
   }
 }
 

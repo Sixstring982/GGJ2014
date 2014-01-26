@@ -5,6 +5,7 @@ void Torpedo_Init(Torpedo* t)
 {
   t->booster = t->warhead = t->homing = false;
   t->state = TORPEDOSTATE_STORAGE;
+  t->heading = 0;
   t->distance = 0;
 }
 

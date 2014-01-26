@@ -99,17 +99,20 @@ void Torpedo_Advance(GameState* state, Torpedo* t)
     {
 
       Torpedo* et = &e->torpedo;
-      if(et->heading == t->heading ||
-	 (t->homing && (ABS(t->heading - et->heading) < ENEMY_DIFFUSE_LATERAL)))
+      if(et->state == TORPEDOSTATE_FIRE)
       {
-	if(t->distance - speed <= et->distance &&
-	   t->distance >= et->distance)
+	if(et->heading == t->heading ||
+	   (t->homing && (ABS(t->heading - et->heading) < ENEMY_DIFFUSE_LATERAL)))
 	{
-	  /* Hit another torpedo! */
-	  printf("[SONAR]: Enemy Torpedo destroyed, heading %d degrees.\n", et->heading);
-	  Torpedo_Init(t);
-	  Torpedo_Init(et);
-	  break;
+	  if(t->distance - speed <= et->distance &&
+	     t->distance >= et->distance)
+	  {
+	    /* Hit another torpedo! */
+	    printf("[SONAR]: Enemy Torpedo destroyed, heading %d degrees.\n", et->heading);
+	    Torpedo_Init(t);
+	    Torpedo_Init(et);
+	    break;
+	  }
 	}
       }
 

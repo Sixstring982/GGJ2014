@@ -3,6 +3,10 @@
 
 #define COLOR_GREEN   "\033[32m"      /* Green */
 #define COLOR_RESET   "\033[0m"
+#define COLOR_RED     "\033[31m"      /* Red */
+#define COLOR_BOLDYELLOW  "\033[1m\033[33m"      /* Bold Yellow */
+
+
 
 
 /* Returns the index of the first 'type'd torpedo, or -1 if there isn't one. */
@@ -223,31 +227,31 @@ void Weapons_Upgrade(GameState* state, u32 upgradeIdx)
 void Weapons_ListStatus(GameState* state)
 {
   u32 i;
-  printf("Inventory: Boosters Warheads Homings\n");
-  printf("           %3d      %3d      %3d\n\n", BoostersLeft(state),
+  printf(COLOR_GREEN "[WEAPONS]: Boosters Warheads Homings" COLOR_RESET "\n");
+  printf(COLOR_GREEN "           %3d      %3d      %3d" COLOR_RESET "\n\n", BoostersLeft(state),
 	 WarheadsLeft(state),
 	 HomingsLeft(state));
-  printf("Notable Torpedos:\n");
+  printf(COLOR_RED "Notable Torpedos:" COLOR_RESET "\n");
 
   for(i = 0; i < TORPEDO_ARRAY_LENGTH; i++)
   {
     switch(state->torpedos[i].state)
     {
     case TORPEDOSTATE_PREP:
-      printf("Torpedo[%d]:%s%s%s Prepped.\n", i,
-	     state->torpedos[i].booster ? "(booster) " : "",
-	     state->torpedos[i].warhead ? "(warhead) " : "",
-	     state->torpedos[i].homing ? "(homing) "   : ""); break;
+      printf(COLOR_GREEN "Torpedo[%d]:%s%s%s Prepped." COLOR_RESET "\n", i,
+	     state->torpedos[i].booster ? COLOR_GREEN "(booster) " COLOR_RESET : "",
+	     state->torpedos[i].warhead ? COLOR_GREEN "(warhead) " COLOR_RESET : "",
+	     state->torpedos[i].homing ? COLOR_GREEN "(homing) " COLOR_RESET  : ""); break;
     case TORPEDOSTATE_LOAD:
-      printf("Torpedo[%d]:%s%s%s Loaded.\n", i,
-	     state->torpedos[i].booster ? "(booster) " : "",
-	     state->torpedos[i].warhead ? "(warhead) " : "",
-	     state->torpedos[i].homing ? "(homing) "   : ""); break;
+      printf(COLOR_BOLDYELLOW "Torpedo[%d]:%s%s%s Loaded." COLOR_RESET "\n", i,
+	     state->torpedos[i].booster ? COLOR_BOLDYELLOW "(booster) " COLOR_RESET : "",
+	     state->torpedos[i].warhead ? COLOR_BOLDYELLOW "(warhead) " COLOR_RESET : "",
+	     state->torpedos[i].homing ? COLOR_BOLDYELLOW "(homing) " COLOR_RESET : ""); break;
     case TORPEDOSTATE_FIRE:
-      printf("Torpedo[%d]:%s%s%s Fired. %d degrees, %d meters.\n", i,
-	     state->torpedos[i].booster ? "(booster) " : "",
-	     state->torpedos[i].warhead ? "(warhead) " : "",
-	     state->torpedos[i].homing ? "(homing) "   : "",
+      printf(COLOR_RED "Torpedo[%d]:%s%s%s Fired. %d degrees, %d meters." COLOR_RESET "\n", i,
+	     state->torpedos[i].booster ? COLOR_RED "(booster) " COLOR_RESET : "",
+	     state->torpedos[i].warhead ? COLOR_RED "(warhead) " COLOR_RESET : "",
+	     state->torpedos[i].homing ? COLOR_RED "(homing) " COLOR_RESET  : "",
 	     state->torpedos[i].heading,
 	     state->torpedos[i].distance); break;
     default: break;

@@ -4,6 +4,9 @@
 #define TICK_SECS 5
 #define MAX_BUFFER_LENGTH 1024
 
+#define TEXT_RESET   "\033[0m"
+#define TEXT_BLINK    "\033[6m"      /* BLINK */
+
 #define COLOR_RESET   "\033[0m"
 #define COLOR_BLACK   "\033[30m"      /* Black */
 #define COLOR_RED     "\033[31m"      /* Red */
@@ -21,6 +24,8 @@
 #define COLOR_BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
 #define COLOR_BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
 #define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
+
+
 
 #include "itype.h"
 

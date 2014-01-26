@@ -1,3 +1,4 @@
+
 #define RUN_TESTS 0
 #if RUN_TESTS
 #include "tests.h"
@@ -8,6 +9,7 @@
 #define COLOR_BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
 #define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 #define COLOR_BLUE    "\033[34m"      /* Blue */
+
 
 
 #include <stdio.h>
@@ -72,6 +74,7 @@ void RunSub()
       }
       else
       {
+
 	printf("Unrecognized command.\n");
       }
     }

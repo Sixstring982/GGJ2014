@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "gamestate.h"
 
+#define COLOR_BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
+#define TEXT_RESET   "\033[0m"
+
+
 void GameState_Init(GameState* state)
 {
   state->currentTick = 0;
@@ -50,7 +54,8 @@ void GameState_Tick(GameState* state)
   {
     state->currentTick++;
     EvalCurrentEvents(state);
-    printf("---- %04d ----\n", state->currentTick);
+    printf(COLOR_BOLDBLACK "---- %04d ----" TEXT_RESET "\n", state->currentTick);
+
   }
 }
 

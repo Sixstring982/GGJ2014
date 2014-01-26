@@ -9,8 +9,10 @@
 #define COLOR_BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
 #define COLOR_BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 #define COLOR_BLUE    "\033[34m"      /* Blue */
+#define COLOR_YELLOW  "\033[33m"      /* Yellow */
 
 
+#define TEXT_FRAK    "\033[100m"      /* FRAKTUR */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +26,7 @@
 
 void PrintManual()
 {
-  printf(COLOR_BOLDBLUE);
+  printf(COLOR_BLUE);
   printf("%-12s%-25s%-25s%-25s\n", "department", "example command", "notes", "base delay");
   printf(COLOR_BOLDBLACK);
 
@@ -69,7 +71,7 @@ void RunSub()
       {
 	running = false;
       }
-      else if(!strcmp(buffer,"manual") || !strcmp(buffer,"help"))
+      else if(!strcmp(buffer,"manual") || !strcmp(buffer,"help") ||  !strcmp(buffer,"h") )
           PrintManual();
       else if(!strcmp(buffer, "pause"))
       {
@@ -82,7 +84,7 @@ void RunSub()
       else
       {
 
-	printf("Unrecognized command.\n");
+	printf(COLOR_YELLOW "Unrecognized command." COLOR_YELLOW "\n");
       }
     }
   }

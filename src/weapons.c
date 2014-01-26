@@ -260,9 +260,16 @@ void Weapons_ListStatus(GameState* state)
   u32 health;
 
   printf(COLOR_GREEN "[WEAPONS]: Boosters Warheads Homings" COLOR_RESET "\n");
-  printf(COLOR_GREEN "           %3d      %3d      %3d" COLOR_RESET "\n\n", Weapons_BoostersLeft(state),
+  Console_ColorBasedOnValue(Weapons_BoostersLeft(state),0,2);
+  printf("           %3d", Weapons_BoostersLeft(state));
+  Console_ColorBasedOnValue(Weapons_WarheadsLeft(state),0,2);
+  printf("      %3d",Weapons_WarheadsLeft(state));
+  Console_ColorBasedOnValue(Weapons_HomingsLeft(state),0,2);
+  printf("      %3d" COLOR_RESET "\n", Weapons_HomingsLeft(state));
+
+  /*printf(COLOR_GREEN "           %3d      %3d      %3d" COLOR_RESET "\n\n", Weapons_BoostersLeft(state),
 	 Weapons_WarheadsLeft(state),
-	 Weapons_HomingsLeft(state));
+	 Weapons_HomingsLeft(state)); */
   
   health = state -> currentHealth;
   printf("Hull Integrity:");

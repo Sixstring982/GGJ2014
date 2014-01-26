@@ -52,8 +52,8 @@ void PrintManual()
 
   printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "prep", "preps a torpedo", "2 ticks");
 
-  printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "upgrade booster/", "upgrades torpedo", "5 ticks per upgrade");
-  printf(COLOR_GREEN "%-13s%-25s%-25s" COLOR_RESET "%-25s\n", "", "warhead/homing", "", "");
+  printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "upgrade booster/", "upgrades a prepped", "5 ticks per upgrade");
+  printf(COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n",       "",       "warhead/homing",    "torpedo", "");
 
   printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "load", "loads torpedo", "2 ticks");
 

@@ -26,7 +26,7 @@ void Rotate(GameState* state, u32 targetHeading, bool counterClockwise)
     state->heading -= 360;
   }
 
-  if(ABS(state->heading - targetHeading) > HELM_ROTATION_DEGREES_PER_TICK)
+  if(ABS(state->heading - targetHeading) >= HELM_ROTATION_DEGREES_PER_TICK)
   {
     CommandFunc func;
     Command* cmd;

@@ -28,6 +28,10 @@
 #include "departments.h"
 #include "gamestate.h"
 
+const char splash[] = "CALL OF THE OCEAN FORE: UNDERWATER WARFARE\n"
+                      "\n"
+		      "Man a submarine. Kill things. type 'help' for more information.\n\n\n";
+
 void PrintManual()
 {
   printf(COLOR_YELLOW);
@@ -67,6 +71,8 @@ void RunSub()
   char buffer[MAX_BUFFER_LENGTH];
   bool running = true;
   GameState state;
+
+  printf("%s", splash);
 
   srand(time(NULL));
   

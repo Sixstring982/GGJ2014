@@ -38,7 +38,10 @@ void PrintManual()
 
   printf("\n%-12s%-25s%-25s%-25s\n", "sonar", "list contacts", "lists enemies", "1 tick ");
 
-  printf("\n%-12s%-25s%-25s%-25s\n", "weapons", "prep", "preps a torpedo", "2 ticks");
+  printf("\n%-12s%-25s%-25s%-25s\n", "weapons", "status", "lists the status of", "1 click");
+  printf("\n%-12s%-25s%-25s%-25s\n", "",        "",       "your weapons", "");
+
+  printf("\n%-12s%-25s%-25s%-25s\n", "", "prep", "preps a torpedo", "2 ticks");
 
   printf("\n%-12s%-25s%-25s%-25s\n", "",         "upgrade booster/", "upgrades torpedo", "5 ticks per upgrade");
   printf("%-12s%-25s%-25s%-25s\n", "",           "warhead/homing", "", "");

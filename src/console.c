@@ -6,6 +6,9 @@
 #include <unistd.h>
 #include "console.h"
 
+/* printf( GREEN "Here is some text\n" RESET ); */
+
+
 bool Console_DataAvailable()
 {
   fd_set rfds;

@@ -3,20 +3,80 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "helm.h"
 #include "sonar.h"
 #include "tokenparse.h"
+#include "util.h"
 #include "command.h"
 
 #define MAX_LIST_SIZE 64
 
-Command* parseHelmToken(char** tokens, u32 currentTick)
+Command* parseHelmToken(char** tokens, u32 tokenCt, u32 currentTick)
 {
+  if(tokenCt >= 2 &&
+     !strcmp("list", tokens[0]) &&
+     !strcmp("heading", tokens[1]))
+  {
+      CommandFunc cfunc;
+      cfunc.c0 = &Helm_ListHeading;
+      
+      return MallocCommand(currentTick + 2, NULL, 0, cfunc);
+  }
+
+  if(tokenCt >= 2 &&
+     !strcmp("rotate", tokens[0]))
+  {
+    u32 newAngle = 0;
+    if(tokenCt >= 2 &&
+       !strcmp("counterclockwise", tokens[1]))
+    {
+      CommandFunc cfunc;
+      u32 args[1];
+      if(!IsDigits(tokens[2]))
+      {
+	return NULL;
+      }
+      newAngle = atoi(tokens[2]);
+      args[0] = TRUNCMOD(newAngle, HELM_ROTATION_DEGREES_PER_TICK);
+      cfunc.c1 = &Helm_RotateCounterClockwise;
+      
+      return MallocCommand(currentTick + 2, args, 1, cfunc);
+    }
+    else if(tokenCt >= 2 &&
+       !strcmp("clockwise", tokens[1]))
+    {
+      CommandFunc cfunc;
+      u32 args[1];
+      if(!IsDigits(tokens[2]))
+      {
+	return NULL;
+      }
+      newAngle = atoi(tokens[2]);
+      args[0] = TRUNCMOD(newAngle, HELM_ROTATION_DEGREES_PER_TICK);
+      cfunc.c1 = &Helm_RotateClockwise;
+      
+      return MallocCommand(currentTick + 2, args, 1, cfunc);
+    }
+    
+    else if(tokenCt >= 1 &&
+	    IsDigits(tokens[1]))
+    {
+      CommandFunc cfunc;
+      u32 args[1];
+      newAngle = atoi(tokens[2]);
+      args[0] = TRUNCMOD(newAngle, HELM_ROTATION_DEGREES_PER_TICK);
+      cfunc.c1 = &Helm_RotateClockwise;
+      
+      return MallocCommand(currentTick + 2, args, 1, cfunc);
+    }
+  }
   return NULL;
 }
 
-Command* parseSonarToken(char** tokens, u32 currentTick)
+Command* parseSonarToken(char** tokens, u32 tokenCt, u32 currentTick)
 {
-  if(!strcmp("list", tokens[0]) &&
+  if(tokenCt >= 2 &&
+     !strcmp("list", tokens[0]) &&
      !strcmp("contacts", tokens[1]))
   {
     CommandFunc cfunc;
@@ -28,15 +88,17 @@ Command* parseSonarToken(char** tokens, u32 currentTick)
   return NULL;
 }
 
-  Command* parseFirstToken(char** tokens, u32 currentTick)
+Command* parseFirstToken(char** tokens, u32 tokenCt,  u32 currentTick)
 {
-  if(!strcmp("helm", tokens[0]))
+  if(tokenCt >= 1 &&
+     !strcmp("helm", tokens[0]))
   {
-    return parseHelmToken(tokens + 1, currentTick);
+    return parseHelmToken(tokens + 1, tokenCt - 1, currentTick);
   }
-  else if(!strcmp("sonar", tokens[0]))
+  else if(tokenCt >= 1 &&
+	  !strcmp("sonar", tokens[0]))
   {
-    return parseSonarToken(tokens + 1, currentTick);
+    return parseSonarToken(tokens + 1, tokenCt - 1, currentTick);
   }
 
   return NULL;
@@ -45,7 +107,7 @@ Command* parseSonarToken(char** tokens, u32 currentTick)
 Command* tokenparse(const char str[], u32 currentTick)
 {
   const char delimiters[] = " \t.,;:!-";
-  int delay;
+  int delay = 0;
   char cmdd[] = "delay";
 
   u32 delimCt = 0, i, j, slen = strlen(str), dlen = strlen(delimiters), currDelim, currChar;
@@ -100,10 +162,5 @@ Command* tokenparse(const char str[], u32 currentTick)
       delay = atoi(tokens[++i]);
   }
 
-  for(i = 0; i < delimCt + 1; i++)
-  {
-    printf("[%s]", tokens[i]);
-  }
-
-  return parseFirstToken(tokens, currentTick + delay); 
+  return parseFirstToken(tokens, delimCt + 1, currentTick + delay); 
 }

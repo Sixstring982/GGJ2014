@@ -37,9 +37,13 @@ void RunSub()
       {
 	GameState_Pause(&state);
       }
-      if((cmd = tokenparse(buffer, state.currentTick)))
+      else if((cmd = tokenparse(buffer, state.currentTick)))
       {
 	GameState_InsertCommand(&state, cmd);
+      }
+      else
+      {
+	printf("Unrecognized command.\n");
       }
     }
   }

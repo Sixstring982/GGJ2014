@@ -3,5 +3,5 @@
 
 void Sonar_PrintContacts(GameState* state)
 {
-  printf("Print Contacts!");
+  printf("Print Contacts!\n");
 }

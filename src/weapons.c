@@ -187,7 +187,7 @@ void Weapons_Upgrade(GameState* state, u32 upgradeIdx)
 
   if(prepped == -1)
   {
-    printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; No prepped torpedo. Use {torpedo prep}.\n"
+    printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; No prepped torpedo. Use {weapons prep}.\n"
 	   COLOR_RESET);
   }
   else

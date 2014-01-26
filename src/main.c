@@ -47,7 +47,7 @@ void PrintManual()
   printf("\n" COLOR_MAGENTA "%-13s%-25s" COLOR_RESET "%-25s%-25s\n",  "sonar", "list contacts", "lists enemies", "1 tick ");
 
   printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "status", "lists the status of", "1 click");
-  printf("\n"COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "",        "",       "your weapons",  "");
+  printf(COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "",        "",       "your weapons",  "");
 
   printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "prep", "preps a torpedo", "2 ticks");
 

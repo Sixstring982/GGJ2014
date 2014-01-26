@@ -160,7 +160,7 @@ void UpdateEnemyTorpedo(GameState* state, Enemy* e)
 	     state->currentHealth);
       if(state->currentHealth <= 0)
       {
-	printf("\n" COLOR_BACK_RED_HIGH COLOR_BOLDWHITE TEXT_BLINK "ABANDON SHIP!\n" COLOR_RESET);
+	printf("\n" COLOR_BACK_RED_HIGH COLOR_BOLDWHITE TEXT_BLINK "ABANDON SHIP!\n" COLOR_RESET TEXT_BLINKOFF COLOR_BACK_RESET);
       }
       Torpedo_Init(&e->torpedo);
     }

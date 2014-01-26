@@ -63,7 +63,7 @@ Command* parseHelmToken(char** tokens, u32 tokenCt, u32 currentTick)
     {
       CommandFunc cfunc;
       u32 args[1];
-      newAngle = atoi(tokens[2]);
+      newAngle = atoi(tokens[1]);
       args[0] = TRUNCMOD(newAngle, HELM_ROTATION_DEGREES_PER_TICK);
       cfunc.c1 = &Helm_RotateClockwise;
       

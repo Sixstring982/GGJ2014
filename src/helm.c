@@ -44,7 +44,7 @@ void Rotate(GameState* state, u32 targetHeading, bool counterClockwise)
   }
   else
   {
-    printf("[HELM] Heading %d Reached.\n", targetHeading);
+    printf("[HELM] Heading %d Reached.\n", state->heading);
   }
 }
 

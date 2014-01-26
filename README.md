@@ -3,6 +3,9 @@ GGJ2014
 
 Global Game Jam 2014 pseudo-text-based submarine battles!
 
+How To Play
+-----------
+
 You're the capatain of an aquadic warcraft and a more or less capable crew. Each operation is different but you seem to always finding yourself surrounded by enemy vessles. 
 
 Your goal is to get your ship and crew to safety. You do this by blowing up the things that are shooting at you. To destroy an enemy ship you must fire a torpedo while you are aimed at the enemy ship. Below is an example of the commands you might use to shoot a torpedo at an enemy.

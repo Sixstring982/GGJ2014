@@ -164,7 +164,7 @@ void UpdateEnemyTorpedo(GameState* state, Enemy* e)
       if(state->currentHealth <= 0)
       {
         int i;
-        for (i = 0; i < 12; i++)
+        for (i = 0; i < 190; i++)
 	         printf("\n" COLOR_BACK_RED_HIGH COLOR_BOLDWHITE TEXT_BLINK "ABANDON SHIP!\n" COLOR_RESET TEXT_BLINKOFF COLOR_BACK_RESET);
   exit(0);
       }

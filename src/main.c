@@ -13,6 +13,8 @@
 #define COLOR_GREEN   "\033[32m"      /* Green */
 #define COLOR_MAGENTA "\033[35m"      /* Magenta */
 #define COLOR_CYAN    "\033[36m"      /* Cyan */
+#define COLOR_RED     "\033[31m"      /* Red */
+
 
 #define TEXT_BLINK    "\033[5m"      /* BLINK */
 
@@ -62,6 +64,10 @@ void PrintManual()
   printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "load", "loads torpedo", "2 ticks");
 
   printf("\n" COLOR_GREEN "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "weapons", "fire", "fires torpedo", "1 tick per 20 meters");
+  printf("\n" COLOR_RED "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "n/a", "pause", "pauses the game", "happens immediately");
+    printf("\n" COLOR_RED "%-13s%-25s" COLOR_RESET "%-25s%-25s\n", "n/a", "delay <n>", "delays a command", "+ n ticks");
+
+
   printf(COLOR_RESET);
 
 }

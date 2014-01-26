@@ -15,6 +15,13 @@ typedef enum e_torpedoState
   TORPEDOSTATE_FIRE
 }TorpedoState;
 
+typedef enum e_torpedoUpgrade
+{
+  TORPEDOUPGRADE_BOOSTER = 0,
+  TORPEDOUPGRADE_WARHEAD = 1,
+  TORPEDOUPGRADE_HOMING  = 2
+}TorpedoUpgrade;
+
 typedef struct s_torpedo
 {
   bool booster;

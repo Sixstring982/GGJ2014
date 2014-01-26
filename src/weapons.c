@@ -31,6 +31,56 @@ s32 TorpedoPrepped(GameState* state)
   return FirstTorpedoOfType(state, TORPEDOSTATE_PREP);
 }
 
+u32 BoostersLeft(GameState* state)
+{
+  return state->ammunition & 0xff;
+}
+
+void DecrementBoosters(GameState* state)
+{
+  u32 boosters = BoostersLeft(state);
+  if(boosters > 0)
+  {
+    boosters--;
+    state->ammunition &= 0xffffff00;
+    state->ammunition &= boosters;
+  }
+}
+
+u32 WarheadsLeft(GameState* state)
+{
+  return (state->ammunition >> 8) & 0xff;
+}
+
+void DecrementWarheads(GameState* state)
+{
+  u32 warheads = WarheadsLeft(state);
+  if(warheads > 0)
+  {
+    warheads--;
+    warheads <<= 8;
+    state->ammunition &= 0xffff00ff;
+    state->ammunition &= warheads;
+  }
+}
+
+u32 HomingsLeft(GameState* state)
+{
+  return (state->ammunition >> 16) & 0xff;
+}
+
+void DecrementHomings(GameState* state)
+{
+  u32 homings = WarheadsLeft(state);
+  if(homings > 0)
+  {
+    homings--;
+    homings <<= 16;
+    state->ammunition &= 0xff00ffff;
+    state->ammunition &= homings;
+  }
+}
+
 s32 TorpedoStorage(GameState* state)
 {
   return FirstTorpedoOfType(state, TORPEDOSTATE_STORAGE);
@@ -73,11 +123,86 @@ void Weapons_LoadTorpedo(GameState* state)
     else
     {
       Torpedo t = state->torpedos[prepped];
-      printf(COLOR_GREEN "[WEAPONS]: %s%s%s torpedo loaded." COLOR_RESET "\n", 
-	     t.booster ? "booster " : "",
-	     t.warhead ? "warhead " : "",
-	     t.homing  ? "homing "  : "");
+      printf(COLOR_GREEN "[WEAPONS]: Torpedo%s%s%s loaded." COLOR_RESET "\n", 
+	     t.booster ? " (booster)" : "",
+	     t.warhead ? " (warhead)" : "",
+	     t.homing  ? " (homing)"  : "");
       Torpedo_SetState(&t, TORPEDOSTATE_LOAD);
     }
   }
+}
+
+void Weapons_Upgrade(GameState* state, u32 upgradeIdx)
+{
+  s32 prepped = TorpedoPrepped(state);
+
+  if(prepped == -1)
+  {
+    printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; No prepped torpedo. Use {torpedo prep}.\n"
+	   COLOR_RESET);
+  }
+  else
+  {
+    switch(upgradeIdx)
+    {
+    case (u32)TORPEDOUPGRADE_BOOSTER:
+      if(state->torpedos[prepped].booster)
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; booster already installed.\n"
+	       COLOR_RESET);	
+      }
+      else if(!BoostersLeft(state))
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; no boosters left.\n"
+	       COLOR_RESET);	
+      }
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo booster upgrade applied.\n" COLOR_RESET);
+	state->torpedos[prepped].booster = true;
+	DecrementBoosters(state);
+      }
+      break;
+
+    case (u32)TORPEDOUPGRADE_WARHEAD:
+      if(state->torpedos[prepped].warhead)
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; warhead already installed.\n"
+	       COLOR_RESET);	
+      }
+      else if(!WarheadsLeft(state))
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; no warheads left.\n"
+	       COLOR_RESET);	
+      }
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo warhead upgrade applied.\n" COLOR_RESET);
+	state->torpedos[prepped].warhead = true;
+	DecrementWarheads(state);
+      }
+      break;
+
+    case (u32)TORPEDOUPGRADE_HOMING:
+      if(state->torpedos[prepped].homing)
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; homing already installed.\n"
+	       COLOR_RESET);	
+      }
+      else if(!HomingsLeft(state))
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo upgrade failed; no homing left.\n"
+	       COLOR_RESET);	
+      }
+      {
+	printf(COLOR_GREEN "[WEAPONS]: Torpedo homing upgrade applied.\n" COLOR_RESET);
+	state->torpedos[prepped].homing = true;
+	DecrementHomings(state);
+      }
+      break;
+    }
+  }
+}
+
+void Weapons_ListInventory(GameState* state)
+{
+  
 }

@@ -1,4 +1,3 @@
-
 #define RUN_TESTS 0
 #if RUN_TESTS
 #include "tests.h"
@@ -79,9 +78,8 @@ void RunSub()
       {
 	GameState_InsertCommand(&state, cmd);
       }
-      else
+      else if(!strcmp(buffer, ""))
       {
-
 	printf("Unrecognized command.\n");
       }
     }

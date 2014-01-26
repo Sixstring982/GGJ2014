@@ -10,7 +10,9 @@ void Torpedo_Init(Torpedo* t)
 
 void Torpedo_Advance(Torpedo* t)
 {
-  t->distance += t->booster ? TORPEDO_BOOST_SPEED : TORPEDO_NORMAL_SPEED;
+  u32 speed = t->booster ? TORPEDO_BOOST_SPEED : TORPEDO_NORMAL_SPEED;
+
+  t->distance += speed;
 
   if(t->distance > TORPEDO_MAX_DISTANCE)
   {

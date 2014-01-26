@@ -5,6 +5,8 @@
 #define MAX(X,Y) ((X) > (Y) ? (X) : (Y))
 #define ABS(X) ((X) < 0 ? (-(X)) : (X))
 #define TRUNCMOD(X,Y) ((((X) % (Y)) == 0) ? (X) : (X) - ((X) % (Y)))
+#define RANDONEIN(X) (!(rand() % (X)))
+#define RANDBOOL (rand() & 1)
 
 extern bool IsDigits(char* str);
 

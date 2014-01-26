@@ -10,6 +10,7 @@
 #define ENEMY_ARRAY_LENGTH 0xff
 #define GAMESTATE_INITIAL_ENEMIES 3
 #define GAMESTATE_INITIAL_HEALTH 100
+#define GAMESTATE_TORPEDO_DAMAGE 30
 
 typedef struct s_gameState
 {
@@ -18,7 +19,7 @@ typedef struct s_gameState
   s32 heading;
   u32 ammunition;
   u32 currentTorpedo;
-  u32 currentHealth;
+  s32 currentHealth;
   PQue eventQueue;
   Torpedo torpedos[TORPEDO_ARRAY_LENGTH];
   Enemy enemies[ENEMY_ARRAY_LENGTH];

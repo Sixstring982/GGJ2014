@@ -118,6 +118,69 @@ void GameState_AdvanceTorpedos(GameState* state)
   }
 }
 
+void UpdateEnemyTorpedo(GameState* state, Enemy* e)
+{
+  if(e->torpedo.state == TORPEDOSTATE_FIRE)
+  {
+    e->torpedo.distance -= TORPEDO_NORMAL_SPEED;
+    if(e->torpedo.distance <= 0)
+    {
+      /*We got hit!*/
+      state->currentHealth -= GAMESTATE_TORPEDO_DAMAGE;
+      if(state->currentHealth < 0)
+      {
+	state->currentHealth = 0;
+      }
+      printf("[SONAR]: WARNING! TORPEDO COLLISION! HULL AT %d PERCENT\n",
+	     state->currentHealth);
+      if(state->currentHealth < 0)
+      {
+	printf("\nABANDON SHIP!\n");
+      }
+      Torpedo_Init(&e->torpedo);
+    }
+  }
+}
+
+void Diffuse(Enemy* e)
+{  
+  /* Diffuse laterally */
+  if(RANDBOOL)
+  {
+    e->heading += RANDBOOL ? ENEMY_DIFFUSE_LATERAL : -ENEMY_DIFFUSE_LATERAL;
+  }
+
+  if(RANDBOOL)
+  {
+    e->distance += RANDBOOL ? ENEMY_DIFFUSE_FORWARD : -ENEMY_DIFFUSE_FORWARD;
+  }
+}
+
+void Fire(Enemy* e)
+{
+  if(e->torpedo.state != TORPEDOSTATE_FIRE)
+  {
+    e->torpedo.heading = e->heading;
+    e->torpedo.distance = e->distance;
+    e->torpedo.state = TORPEDOSTATE_FIRE;
+    printf("[SONAR]: Enemy torpedo detected; Heading %d degrees.\n", e->torpedo.heading);
+  }
+}
+
+
+void Enemy_Update(GameState* state, Enemy* e)
+{
+  if(RANDONEIN(ENEMY_DIFFUSE_ODDS))
+  {
+    Diffuse(e);
+  }
+  if(RANDONEIN(ENEMY_FIRE_ODDS))
+  {
+    Fire(e);
+  }
+  UpdateEnemyTorpedo(state, e);
+}
+
 void GameState_UpdateEnemies(GameState* state)
 {
   u32 i;
@@ -125,7 +188,7 @@ void GameState_UpdateEnemies(GameState* state)
   {
     if(state->enemies[i].alive)
     {
-      Enemy_Update(state->enemies + i);
+      Enemy_Update(state, state->enemies + i);
     }
   }
 }
@@ -137,6 +200,7 @@ void GameState_Tick(GameState* state)
     state->currentTick++;
     EvalCurrentEvents(state);
     GameState_AdvanceTorpedos(state);
+    GameState_UpdateEnemies(state);
     printf(COLOR_BOLDBLACK "---- %04d ----" TEXT_RESET "\n", state->currentTick);
   }
 }

@@ -8,18 +8,18 @@
 #define ENEMY_HIT_ODDS 50
 
 #include "itype.h"
+#include "torpedo.h"
 
 typedef struct s_enemy
 {
   bool alive;
   u32 heading;
   u32 distance;
+  Torpedo torpedo;
 }Enemy;
 
 extern void Enemy_Init(Enemy* e);
 
 extern void Enemy_Spawn(Enemy* e);
-
-extern void Enemy_Update(Enemy* e);
 
 #endif /*ENEMY_H*/

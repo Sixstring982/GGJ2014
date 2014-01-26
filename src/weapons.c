@@ -7,8 +7,6 @@
 #define COLOR_BOLDYELLOW  "\033[1m\033[33m"      /* Bold Yellow */
 
 
-
-
 /* Returns the index of the first 'type'd torpedo, or -1 if there isn't one. */
 s32 FirstTorpedoOfType(GameState* state, TorpedoState type)
 {
@@ -231,6 +229,7 @@ void Weapons_ListStatus(GameState* state)
   printf(COLOR_GREEN "           %3d      %3d      %3d" COLOR_RESET "\n\n", BoostersLeft(state),
 	 WarheadsLeft(state),
 	 HomingsLeft(state));
+  printf(COLOR_RED "Hull Integrity: %d percent." COLOR_RESET "\n", state->currentHealth);
   printf(COLOR_RED "Notable Torpedos:" COLOR_RESET "\n");
 
   for(i = 0; i < TORPEDO_ARRAY_LENGTH; i++)

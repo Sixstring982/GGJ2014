@@ -8,9 +8,9 @@ INSTALLATION
 ------------
 
 *NIX:
-#cd GGJ14
-#make
-#./build/sub
+'#cd GGJ14
+'#make
+'#./build/sub
 
 
 ANYTHING other than *NIX:

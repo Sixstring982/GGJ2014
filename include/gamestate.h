@@ -15,7 +15,7 @@ typedef struct s_gameState
   u32 ammunition;
   u32 currentTorpedo;
   PQue eventQueue;
-  Torpedo* torpedos[TORPEDO_ARRAY_LENGTH];
+  Torpedo torpedos[TORPEDO_ARRAY_LENGTH];
 }GameState;
 
 extern void GameState_GetAmmoCount(u32 ammoType);

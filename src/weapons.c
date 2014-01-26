@@ -7,7 +7,7 @@ s32 FirstTorpedoOfType(GameState* state, TorpedoState type)
   u32 i;
   for(i = 0; i < TORPEDO_ARRAY_LENGTH; i++)
   {
-    if(state->torpedos[i]->state == type)
+    if(state->torpedos[i].state == type)
     {
       return i;
     }
@@ -63,12 +63,12 @@ void Weapons_LoadTorpedo(GameState* state)
     }
     else
     {
-      Torpedo* t = state->torpedos[prepped];
+      Torpedo t = state->torpedos[prepped];
       printf("[WEAPONS]: %s%s%s torpedo loaded.\n", 
-	     t->booster ? "booster " : "",
-	     t->warhead ? "warhead " : "",
-	     t->homing  ? "homing "  : "");
-      Torpedo_SetState(t, TORPEDOSTATE_LOAD);
+	     t.booster ? "booster " : "",
+	     t.warhead ? "warhead " : "",
+	     t.homing  ? "homing "  : "");
+      Torpedo_SetState(&t, TORPEDOSTATE_LOAD);
     }
   }
 }

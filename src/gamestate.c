@@ -17,7 +17,7 @@ void GameState_Init(GameState* state)
   state->currentTorpedo = 0;
   for(i = 0; i < 0xff; i++)
   {
-    state->torpedos[i] = NULL;
+    Torpedo_Init(state->torpedos + i);
   }
 }
 
@@ -60,9 +60,9 @@ void GameState_AdvanceTorpedos(GameState* state)
   u32 i;
   for(i = 0; i < TORPEDO_ARRAY_LENGTH; i++)
   {
-    if(state->torpedos[i]->state == TORPEDOSTATE_FIRE)
+    if(state->torpedos[i].state == TORPEDOSTATE_FIRE)
     {
-      Torpedo_Advance(state->torpedos[i]);
+      Torpedo_Advance(state->torpedos + i);
     }
   }
 }

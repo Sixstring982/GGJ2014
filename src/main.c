@@ -94,7 +94,6 @@ void RunSub()
       }
       else if(strcmp(buffer, ""))
       {
-
 	printf(COLOR_YELLOW "Unrecognized command." COLOR_YELLOW "\n");
       }
     }

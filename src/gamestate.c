@@ -13,12 +13,23 @@ void GameState_Init(GameState* state)
   state->paused = false;
   state->heading = 15 * (rand() % 24);
   state->ammunition = 0xffffff;
+  state->currentHealth = GAMESTATE_INITIAL_HEALTH;
   PQue_Init(&(state->eventQueue));
 
   state->currentTorpedo = 0;
-  for(i = 0; i < 0xff; i++)
+  for(i = 0; i < TORPEDO_ARRAY_LENGTH; i++)
   {
     Torpedo_Init(state->torpedos + i);
+  }
+
+  for(i = 0; i < ENEMY_ARRAY_LENGTH; i++)
+  {
+    Enemy_Init(state->enemies + i);
+  }
+
+  for(i = 0; i < GAMESTATE_INITIAL_ENEMIES; i++)
+  {
+    GameState_SpawnEnemy(state);
   }
 }
 
@@ -68,6 +79,18 @@ void GameState_AdvanceTorpedos(GameState* state)
   }
 }
 
+void GameState_UpdateEnemies(GameState* state)
+{
+  u32 i;
+  for(i = 0; i < ENEMY_ARRAY_LENGTH; i++)
+  {
+    if(state->enemies[i].alive)
+    {
+      Enemy_Update(state->enemies + i);
+    }
+  }
+}
+
 void GameState_Tick(GameState* state)
 {
   if(!state->paused)
@@ -83,4 +106,17 @@ void GameState_InsertCommand(GameState* state, Command* command)
 {
   PQue_Insert(&state->eventQueue, command);
   printf("[[EXECUTION SCHEDULED: %04d]]\n", command->executionTick);
+}
+
+void GameState_SpawnEnemy(GameState* state)
+{
+  u32 i;
+  for(i = 0; i < ENEMY_ARRAY_LENGTH; i++)
+  {
+    if(!state->enemies[i].alive)
+    {
+      Enemy_Spawn(state->enemies + i);
+      break;
+    }
+  }
 }

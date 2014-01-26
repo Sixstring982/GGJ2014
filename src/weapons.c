@@ -118,6 +118,7 @@ void Weapons_FireTorpedo(GameState* state)
   {
     printf(COLOR_GREEN "[WEAPONS]: Torpedo fired!\n");
     Torpedo_SetState(state->torpedos + loaded, TORPEDOSTATE_FIRE);
+    state->torpedos[loaded].heading = state->heading;
   }
 }
 
@@ -233,11 +234,22 @@ void Weapons_ListStatus(GameState* state)
     switch(state->torpedos[i].state)
     {
     case TORPEDOSTATE_PREP:
-      printf("Torpedo[%d]: Prepped.\n", i); break;
+      printf("Torpedo[%d]:%s%s%s Prepped.\n", i,
+	     state->torpedos[i].booster ? "(booster) " : "",
+	     state->torpedos[i].warhead ? "(warhead) " : "",
+	     state->torpedos[i].homing ? "(homing) "   : ""); break;
     case TORPEDOSTATE_LOAD:
-      printf("Torpedo[%d]: Loaded.\n", i); break;
+      printf("Torpedo[%d]:%s%s%s Loaded.\n", i,
+	     state->torpedos[i].booster ? "(booster) " : "",
+	     state->torpedos[i].warhead ? "(warhead) " : "",
+	     state->torpedos[i].homing ? "(homing) "   : ""); break;
     case TORPEDOSTATE_FIRE:
-      printf("Tropedo[%d]: Fired.\n", i); break;
+      printf("Torpedo[%d]:%s%s%s Fired. %d degrees, %d meters.\n", i,
+	     state->torpedos[i].booster ? "(booster) " : "",
+	     state->torpedos[i].warhead ? "(warhead) " : "",
+	     state->torpedos[i].homing ? "(homing) "   : "",
+	     state->torpedos[i].heading,
+	     state->torpedos[i].distance); break;
     default: break;
     }
   }

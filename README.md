@@ -49,3 +49,7 @@ INSTALLATION
 ANYTHING other than *NIX:
 
     to do: get linux
+
+SYSTEM REQUIREMENTS
+--------------------
+Minimum system requirements: 10 Mhz CPU 1 MB RAM 2 MB free hard drive space 800x600 display or printer attached to std output Keyboard
